@@ -6621,7 +6621,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Tools/2.0.1": {
-      "sha512": "/z1xawAD0oL5AyFd3vn9E7L6mE2UfEU91KwMDWEp8o0+AOrP4ZocJS5Kot5VYJMfDUeAzDBBZPmJs+r6/YUEiA==",
+      "sha512": "jAb+C+4zyMnVuHesgyiB8piOXvWmMhBcq0kK7IKYswO5Ciguh13b0N0rXCHBee1rTxoWc4xC6utif2JtP9WSbQ==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.tools/2.0.1",
       "files": [
@@ -13414,36 +13414,32 @@
       "AWSSDK.DynamoDBv2 >= 3.3.6",
       "AWSSDK.Extensions.NETCore.Setup >= 3.3.4",
       "Microsoft.AspNetCore.All >= 2.0.5",
+      "Microsoft.AspNetCore.Mvc >= 2.0.2",
+      "Microsoft.AspNetCore.StaticFiles >= 2.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.2"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jiawz\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\Meghan\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
-    "restoreSettings": {
-      "hideWarningsAndErrors": true
-    },
     "restore": {
-      "projectUniqueName": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\SeniorProject1.csproj",
+      "projectUniqueName": "C:\\Users\\Meghan\\source\\repos\\StudySolution2\\SeniorProject1\\SeniorProject1.csproj",
       "projectName": "SeniorProject1",
-      "projectPath": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\SeniorProject1.csproj",
-      "packagesPath": "C:\\Users\\jiawz\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\obj\\",
+      "projectPath": "C:\\Users\\Meghan\\source\\repos\\StudySolution2\\SeniorProject1\\SeniorProject1.csproj",
+      "packagesPath": "C:\\Users\\Meghan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Meghan\\source\\repos\\StudySolution2\\SeniorProject1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\jiawz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\Meghan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -13466,32 +13462,40 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0",
+            "autoReferenced": true
+          },
           "AWSSDK.DynamoDBv2": {
             "target": "Package",
-            "version": "[3.3.6, )"
+            "version": "3.3.6"
           },
           "AWSSDK.Extensions.NETCore.Setup": {
             "target": "Package",
-            "version": "[3.3.4, )"
+            "version": "3.3.4"
           },
           "Microsoft.AspNetCore.All": {
             "target": "Package",
-            "version": "[2.0.5, )"
+            "version": "2.0.5"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.1, )"
-          },
-          "Microsoft.NETCore.App": {
-            "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
+            "version": "2.0.1"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "2.0.2"
+          },
+          "Microsoft.AspNetCore.Mvc": {
+            "target": "Package",
+            "version": "2.0.2"
+          },
+          "Microsoft.AspNetCore.StaticFiles": {
+            "target": "Package",
+            "version": "2.0.1"
           }
         },
         "imports": [
