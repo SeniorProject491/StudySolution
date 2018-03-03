@@ -10,5 +10,9 @@ namespace SeniorProject1.Models
         public IEnumerable<Item> Items { get; set; }
 
         public IEnumerable<User> User { get; set; }
+
+        public IEnumerable<Event> Event { get; set; }
+
+        public IEnumerable<Notification> Notification { get; set; }
     }
 }

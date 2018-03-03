@@ -20,9 +20,9 @@ namespace SeniorProject1.DynamoDB
             _getItem = getItem;
         }
 
-        public async Task<DeleteItemResponse> Delete(int id)
+        public async Task<DeleteItemResponse> Delete(String tableName, int id)
         {
-            var deleteItem = await _getItem.GetItems(id);
+            var deleteItem = await _getItem.GetItems(tableName, id);
 
             //var currentID = deleteItem.Items.Select(p => p.Id);
 

@@ -13,11 +13,15 @@ namespace SeniorProject1.Models
         public int NotificationID { set; get; }
 
         [DynamoDBHashKey]
-        public int UserID { set; get; }
+        public int ReceiverID { set; get; }
+
+        [DynamoDBProperty]
+        public int SenderID { set; get; }
 
         [DynamoDBProperty]
         public string NotificationMsg { set; get; }
 
-        public string Status { set; get; }
+        // true = accepted
+        public bool Status { set; get; }
     }
 }

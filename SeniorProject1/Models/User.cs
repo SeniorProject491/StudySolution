@@ -17,12 +17,6 @@ namespace SeniorProject1.Models
         [DynamoDBProperty]
         public string Email { get; set; }
 
-        [DynamoDBProperty]
-        public List<User> Friends { get; set; }
-
-        public List<Event> Events { get; set; }
-
-        public List<Notification> Notification { get; set; }
 
     }
 }

@@ -14,7 +14,7 @@ namespace SeniorProject1.Models
         public int EventID { set; get; }
 
         [DynamoDBHashKey]
-        public string UserID { set; get; }
+        public int UserID { set; get; }
 
         [DynamoDBProperty]
         public string EventType { set; get; }
@@ -27,9 +27,10 @@ namespace SeniorProject1.Models
 
         public DateTime EventDateTime { set; get; }
 
-        public List<DateTime> Alert { set; get; }
+        public List<int> Alert { set; get; }
 
-        public string Status { set; get; }
+        //true = available
+        public bool Status { set; get; }
 
         public string Notes { set; get; }
 

@@ -20,9 +20,9 @@ namespace SeniorProject1.DynamoDB
             _getItem = getItem;
         }
 
-        public async Task<Item> Update (int id, double price)
+        public async Task<Item> Update (string tableName, int id, double price)
         {
-            var response = await _getItem.GetItems(id);
+            var response = await _getItem.GetItems(tableName, id);
 
             var currentPrice = response.Items.Select(p => p.Price).FirstOrDefault();
 

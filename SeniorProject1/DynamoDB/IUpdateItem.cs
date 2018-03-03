@@ -8,6 +8,6 @@ namespace SeniorProject1.DynamoDB
 {
     public interface IUpdateItem
     {
-        Task<Item> Update(int id, double price);
+        Task<Item> Update(string tableName, int id, double price);
     }
 }

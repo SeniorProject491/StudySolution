@@ -8,6 +8,6 @@ namespace SeniorProject1.DynamoDB
 {
     public interface IGetItem
     {
-        Task<DynamoTableItems> GetItems(int? id);
+        Task<DynamoTableItems> GetItems(string tableName, int? id);
     }
 }

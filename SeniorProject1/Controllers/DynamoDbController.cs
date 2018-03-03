@@ -42,27 +42,27 @@ namespace SeniorProject1.Controllers
         }
 
         [Route("getitems")]
-        public async Task<IActionResult> GetItems([FromQuery] int? id)
+        public async Task<IActionResult> GetItems([FromQuery] string tableName, int? id)
         {
-            var response = await _getItem.GetItems(id);
+            var response = await _getItem.GetItems(tableName,id);
 
             return Ok(response);
         }
 
         [HttpPut]
         [Route("updateitem")]
-        public async Task<IActionResult> UpdateItem([FromQuery] int id, double price)
+        public async Task<IActionResult> UpdateItem([FromQuery] string tableName, int id, double price)
         {
-            var response = await _updateItem.Update(id, price);
+            var response = await _updateItem.Update(tableName, id, price);
 
             return Ok(response);
         }
 
         [HttpDelete]
         [Route("deleteitem")]
-        public async Task<IActionResult> DeleteItem([FromQuery] int id)
+        public async Task<IActionResult> DeleteItem([FromQuery]string tableName, int id)
         {
-            var response = await _deleteItem.Delete(id);
+            var response = await _deleteItem.Delete(tableName, id);
 
             return Ok(response);
         }
