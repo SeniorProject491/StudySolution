@@ -40,7 +40,7 @@ namespace SeniorProject1.DynamoDB
                 {
                     User = result.Items.Select(MapUser).ToList()
                 };
-            } else if (_tableName == "Events")
+            } else if (_tableName == "Event")
             {                
                 _projectionExpression = "EventID, UserID, EventName, EventType, Alert, EventDateTime, EventLocation, Notes, Occurrence, EventStatus";
                 _filterExpression = "UserID = :v_Id";

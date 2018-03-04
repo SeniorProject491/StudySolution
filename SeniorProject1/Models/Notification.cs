@@ -12,7 +12,7 @@ namespace SeniorProject1.Models
         [DynamoDBHashKey]
         public int NotificationID { set; get; }
 
-        [DynamoDBHashKey]
+        [DynamoDBRangeKey]
         public int ReceiverID { set; get; }
 
         [DynamoDBProperty]

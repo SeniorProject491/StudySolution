@@ -13,7 +13,7 @@ namespace SeniorProject1.Models
         [DynamoDBHashKey]
         public int EventID { set; get; }
 
-        [DynamoDBHashKey]
+        [DynamoDBRangeKey]
         public int UserID { set; get; }
 
         [DynamoDBProperty]
