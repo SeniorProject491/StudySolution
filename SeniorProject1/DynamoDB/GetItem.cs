@@ -21,7 +21,10 @@ namespace SeniorProject1.DynamoDB
             _dynamoDbClient = dynamoDbClient;
         }
 
-        public async Task<DynamoTableItems> GetItems(string tableName, int? id)
+        /**
+         * Get items based on UserID
+         */
+        public async Task<DynamoTableItems> GetUserItems(string tableName, int? id)
         {
             _tableName = tableName;
 
@@ -61,6 +64,43 @@ namespace SeniorProject1.DynamoDB
                     Notification = result.Items.Select(MapNotification).ToList()
                 };
             }
+        }
+
+        /**
+         *  Get item based on the item's primary key
+         */
+        public async Task<DynamoTableItems> GetItems(string tableName, int id)
+        {
+            _tableName = tableName;
+
+            ScanRequest queryRequest; ;
+
+            ScanResponse result;
+
+           if (_tableName == "Event")
+            {
+                _projectionExpression = "EventID, UserID, EventName, EventType, Alert, EventDateTime, EventLocation, Notes, Occurrence, EventStatus";
+                _filterExpression = "EventID = :v_Id";
+                queryRequest = RequestBuilder(id);
+                result = await ScanAsync(queryRequest);
+                return new DynamoTableItems
+                {
+                    Event = result.Items.Select(MapEvent).ToList()
+                };
+            }
+            else if (_tableName == "Notification")
+            {
+                _projectionExpression = "NotificationID, ReceiverID, SenderID, NotificationMsg, NotificationStatus";
+                _filterExpression = "NotificationID = :v_Id";
+                queryRequest = RequestBuilder(id);
+                result = await ScanAsync(queryRequest);
+                return new DynamoTableItems
+                {
+                    Notification = result.Items.Select(MapNotification).ToList()
+                };
+            }
+
+            return null;
         }
 
         private Notification MapNotification(Dictionary<string, AttributeValue> result)

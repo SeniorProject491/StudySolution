@@ -42,9 +42,17 @@ namespace SeniorProject1.Controllers
         }
 
         [Route("getitems")]
-        public async Task<IActionResult> GetItems([FromQuery] string tableName, int? id)
+        public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
         {
-            var response = await _getItem.GetItems(tableName,id);
+            var response = await _getItem.GetItems(tableName, id);
+
+            return Ok(response);
+        }
+
+        [Route("getuseritems")]
+        public async Task<IActionResult> GetUserItems([FromQuery] string tableName, int? id)
+        {
+            var response = await _getItem.GetUserItems(tableName, id);
 
             return Ok(response);
         }
