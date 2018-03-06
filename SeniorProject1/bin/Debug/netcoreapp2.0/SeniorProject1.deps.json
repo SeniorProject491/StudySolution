@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "420a1bba34440a6dc74afdaa469fcac5959ed12b"
+    "signature": "08f95be2a4a6526d452cc2e137f7feb4573a0fcb"
   },
   "compilationOptions": {
     "defines": [
@@ -23,8 +23,9 @@
     ".NETCoreApp,Version=v2.0": {
       "SeniorProject1/1.0.0": {
         "dependencies": {
-          "AWSSDK.DynamoDBv2": "3.3.6",
+          "AWSSDK.DynamoDBv2": "3.3.6.1",
           "AWSSDK.Extensions.NETCore.Setup": "3.3.4",
+          "ElCamino.AspNet.Identity.Dynamo.v2": "2.0.4",
           "Microsoft.AspNetCore.All": "2.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "2.0.1",
           "Microsoft.NETCore.App": "2.0.0",
@@ -37,7 +38,7 @@
           "SeniorProject1.dll": {}
         }
       },
-      "AWSSDK.Core/3.3.19": {
+      "AWSSDK.Core/3.3.21.15": {
         "dependencies": {
           "Microsoft.CSharp": "4.4.0",
           "System.Net.Requests": "4.0.11",
@@ -52,9 +53,9 @@
           "lib/netstandard1.3/AWSSDK.Core.dll": {}
         }
       },
-      "AWSSDK.DynamoDBv2/3.3.6": {
+      "AWSSDK.DynamoDBv2/3.3.6.1": {
         "dependencies": {
-          "AWSSDK.Core": "3.3.19"
+          "AWSSDK.Core": "3.3.21.15"
         },
         "runtime": {
           "lib/netstandard1.3/AWSSDK.DynamoDBv2.dll": {}
@@ -65,7 +66,7 @@
       },
       "AWSSDK.Extensions.NETCore.Setup/3.3.4": {
         "dependencies": {
-          "AWSSDK.Core": "3.3.19",
+          "AWSSDK.Core": "3.3.21.15",
           "Microsoft.Extensions.Configuration.Abstractions": "2.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
         },
@@ -74,6 +75,20 @@
         },
         "compile": {
           "lib/netstandard1.3/AWSSDK.Extensions.NETCore.Setup.dll": {}
+        }
+      },
+      "ElCamino.AspNet.Identity.Dynamo.v2/2.0.4": {
+        "dependencies": {
+          "AWSSDK.Core": "3.3.21.15",
+          "AWSSDK.DynamoDBv2": "3.3.6.1",
+          "Microsoft.AspNet.Identity.Core": "2.2.1",
+          "Newtonsoft.Json": "10.0.1"
+        },
+        "runtime": {
+          "lib/net45/ElCamino.AspNet.Identity.Dynamo.v2.dll": {}
+        },
+        "compile": {
+          "lib/net45/ElCamino.AspNet.Identity.Dynamo.v2.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -161,6 +176,14 @@
         },
         "compile": {
           "lib/netstandard1.6/Microsoft.AI.DependencyCollector.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Identity.Core/2.2.1": {
+        "runtime": {
+          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
+        },
+        "compile": {
+          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.0.1": {
@@ -4314,19 +4337,19 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AWSSDK.Core/3.3.19": {
+    "AWSSDK.Core/3.3.21.15": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zmXaVNKtbQ1RfwHawEkKM7nvkSeWjljwiBKtaUpf2Woni/vmYd5l0gY54dNVN7Z9IsCoxwitGcFfJYOtrE/upg==",
-      "path": "awssdk.core/3.3.19",
-      "hashPath": "awssdk.core.3.3.19.nupkg.sha512"
+      "sha512": "sha512-tdGjSTmj2hZnMW70KZzv89kkFoPFoPTFheGqg2+MJNbIFBo7aFlKyeeDPrGcxq75f69FsyfB5Xe9/gLfYZpv6Q==",
+      "path": "awssdk.core/3.3.21.15",
+      "hashPath": "awssdk.core.3.3.21.15.nupkg.sha512"
     },
-    "AWSSDK.DynamoDBv2/3.3.6": {
+    "AWSSDK.DynamoDBv2/3.3.6.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kmhClxbwDd4qptDa1+X3X/KRdeuP6X6NpkCxspZIbEDVxyaKshwaj58NKYd0pRJmKPCb+yZ2WGaFfGgl38PL/A==",
-      "path": "awssdk.dynamodbv2/3.3.6",
-      "hashPath": "awssdk.dynamodbv2.3.3.6.nupkg.sha512"
+      "sha512": "sha512-SSpyizZxoN2saUs8o7t3jJQlZ0QGV3XIIjVUR4JVWuCODVr/9nBHUKtZJCKe1G5r3CzfTQHYFf21czSy9oiZuQ==",
+      "path": "awssdk.dynamodbv2/3.3.6.1",
+      "hashPath": "awssdk.dynamodbv2.3.3.6.1.nupkg.sha512"
     },
     "AWSSDK.Extensions.NETCore.Setup/3.3.4": {
       "type": "package",
@@ -4334,6 +4357,13 @@
       "sha512": "sha512-N61Fi4zzIlRl8gY+6SNFyuKEb5FU0UhDIhcPleyK5W/uj0kS0VTSyDfF28QXisiSf0ynSh+QlL9UK+GTPnsDlA==",
       "path": "awssdk.extensions.netcore.setup/3.3.4",
       "hashPath": "awssdk.extensions.netcore.setup.3.3.4.nupkg.sha512"
+    },
+    "ElCamino.AspNet.Identity.Dynamo.v2/2.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1y615ho4FZCbNBBPxgH61U184BR7UA43lmi1yAbZYbDO6eG41vJsx1VUJgpITovikxfpKVIbBAtB/MuHJfLhFA==",
+      "path": "elcamino.aspnet.identity.dynamo.v2/2.0.4",
+      "hashPath": "elcamino.aspnet.identity.dynamo.v2.2.0.4.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
@@ -4362,6 +4392,13 @@
       "sha512": "sha512-RWxdX90MY6tNF8S5lwRvJcHiBMIWwVLCxd4TGIEl3X0yAKaolY2vs4zTCvyCIVkEAMs1aInTgWkYwOjzYvAHWw==",
       "path": "microsoft.applicationinsights.dependencycollector/2.4.1",
       "hashPath": "microsoft.applicationinsights.dependencycollector.2.4.1.nupkg.sha512"
+    },
+    "Microsoft.AspNet.Identity.Core/2.2.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jjurNglpmcv0SLBd4Fmar8ZoJ2yqfTf6iuP3p8wVH7Nvanfo8l3qTBzq3qRQz2BQlb6iXJiDWPjcnIImVz512g==",
+      "path": "microsoft.aspnet.identity.core/2.2.1",
+      "hashPath": "microsoft.aspnet.identity.core.2.2.1.nupkg.sha512"
     },
     "Microsoft.AspNetCore/2.0.1": {
       "type": "package",

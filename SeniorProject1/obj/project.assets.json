@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
-      "AWSSDK.Core/3.3.19": {
+      "AWSSDK.Core/3.3.21.15": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
@@ -18,10 +18,10 @@
           "lib/netstandard1.3/AWSSDK.Core.dll": {}
         }
       },
-      "AWSSDK.DynamoDBv2/3.3.6": {
+      "AWSSDK.DynamoDBv2/3.3.6.1": {
         "type": "package",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.19, 3.4.0)"
+          "AWSSDK.Core": "[3.3.21.15, 3.4.0)"
         },
         "compile": {
           "lib/netstandard1.3/AWSSDK.DynamoDBv2.dll": {}
@@ -42,6 +42,21 @@
         },
         "runtime": {
           "lib/netstandard1.3/AWSSDK.Extensions.NETCore.Setup.dll": {}
+        }
+      },
+      "ElCamino.AspNet.Identity.Dynamo.v2/2.0.4": {
+        "type": "package",
+        "dependencies": {
+          "AWSSDK.Core": "3.1.4.5",
+          "AWSSDK.DynamoDBv2": "3.1.1.4",
+          "Microsoft.AspNet.Identity.Core": "2.2.1",
+          "Newtonsoft.Json": "6.0.8"
+        },
+        "compile": {
+          "lib/net45/ElCamino.AspNet.Identity.Dynamo.v2.dll": {}
+        },
+        "runtime": {
+          "lib/net45/ElCamino.AspNet.Identity.Dynamo.v2.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -133,6 +148,15 @@
         },
         "runtime": {
           "lib/netstandard1.6/Microsoft.AI.DependencyCollector.dll": {}
+        }
+      },
+      "Microsoft.AspNet.Identity.Core/2.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.AspNet.Identity.Core.dll": {}
         }
       },
       "Microsoft.AspNetCore/2.0.1": {
@@ -5120,12 +5144,12 @@
     }
   },
   "libraries": {
-    "AWSSDK.Core/3.3.19": {
-      "sha512": "zmXaVNKtbQ1RfwHawEkKM7nvkSeWjljwiBKtaUpf2Woni/vmYd5l0gY54dNVN7Z9IsCoxwitGcFfJYOtrE/upg==",
+    "AWSSDK.Core/3.3.21.15": {
+      "sha512": "tdGjSTmj2hZnMW70KZzv89kkFoPFoPTFheGqg2+MJNbIFBo7aFlKyeeDPrGcxq75f69FsyfB5Xe9/gLfYZpv6Q==",
       "type": "package",
-      "path": "awssdk.core/3.3.19",
+      "path": "awssdk.core/3.3.21.15",
       "files": [
-        "awssdk.core.3.3.19.nupkg.sha512",
+        "awssdk.core.3.3.21.15.nupkg.sha512",
         "awssdk.core.nuspec",
         "lib/MonoAndroid10/AWSSDK.Core.XML",
         "lib/MonoAndroid10/AWSSDK.Core.dll",
@@ -5163,13 +5187,13 @@
         "tools/account-management.ps1"
       ]
     },
-    "AWSSDK.DynamoDBv2/3.3.6": {
-      "sha512": "kmhClxbwDd4qptDa1+X3X/KRdeuP6X6NpkCxspZIbEDVxyaKshwaj58NKYd0pRJmKPCb+yZ2WGaFfGgl38PL/A==",
+    "AWSSDK.DynamoDBv2/3.3.6.1": {
+      "sha512": "SSpyizZxoN2saUs8o7t3jJQlZ0QGV3XIIjVUR4JVWuCODVr/9nBHUKtZJCKe1G5r3CzfTQHYFf21czSy9oiZuQ==",
       "type": "package",
-      "path": "awssdk.dynamodbv2/3.3.6",
+      "path": "awssdk.dynamodbv2/3.3.6.1",
       "files": [
         "analyzers/dotnet/cs/AWSSDK.DynamoDBv2.CodeAnalysis.dll",
-        "awssdk.dynamodbv2.3.3.6.nupkg.sha512",
+        "awssdk.dynamodbv2.3.3.6.1.nupkg.sha512",
         "awssdk.dynamodbv2.nuspec",
         "lib/MonoAndroid10/AWSSDK.DynamoDBv2.XML",
         "lib/MonoAndroid10/AWSSDK.DynamoDBv2.dll",
@@ -5206,6 +5230,17 @@
         "awssdk.extensions.netcore.setup.nuspec",
         "lib/netstandard1.3/AWSSDK.Extensions.NETCore.Setup.dll",
         "lib/netstandard1.3/AWSSDK.Extensions.NETCore.Setup.pdb"
+      ]
+    },
+    "ElCamino.AspNet.Identity.Dynamo.v2/2.0.4": {
+      "sha512": "1y615ho4FZCbNBBPxgH61U184BR7UA43lmi1yAbZYbDO6eG41vJsx1VUJgpITovikxfpKVIbBAtB/MuHJfLhFA==",
+      "type": "package",
+      "path": "elcamino.aspnet.identity.dynamo.v2/2.0.4",
+      "files": [
+        "content/IdentityDynamoDb.pfx",
+        "elcamino.aspnet.identity.dynamo.v2.2.0.4.nupkg.sha512",
+        "elcamino.aspnet.identity.dynamo.v2.nuspec",
+        "lib/net45/ElCamino.AspNet.Identity.Dynamo.v2.dll"
       ]
     },
     "Libuv/1.10.0": {
@@ -5275,6 +5310,17 @@
         "lib/netstandard1.6/Microsoft.AI.DependencyCollector.xml",
         "microsoft.applicationinsights.dependencycollector.2.4.1.nupkg.sha512",
         "microsoft.applicationinsights.dependencycollector.nuspec"
+      ]
+    },
+    "Microsoft.AspNet.Identity.Core/2.2.1": {
+      "sha512": "jjurNglpmcv0SLBd4Fmar8ZoJ2yqfTf6iuP3p8wVH7Nvanfo8l3qTBzq3qRQz2BQlb6iXJiDWPjcnIImVz512g==",
+      "type": "package",
+      "path": "microsoft.aspnet.identity.core/2.2.1",
+      "files": [
+        "lib/net45/Microsoft.AspNet.Identity.Core.dll",
+        "lib/net45/Microsoft.AspNet.Identity.Core.xml",
+        "microsoft.aspnet.identity.core.2.2.1.nupkg.sha512",
+        "microsoft.aspnet.identity.core.nuspec"
       ]
     },
     "Microsoft.AspNetCore/2.0.1": {
@@ -13411,8 +13457,9 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "AWSSDK.DynamoDBv2 >= 3.3.6",
+      "AWSSDK.DynamoDBv2 >= 3.3.6.1",
       "AWSSDK.Extensions.NETCore.Setup >= 3.3.4",
+      "ElCamino.AspNet.Identity.Dynamo.v2 >= 2.0.4",
       "Microsoft.AspNetCore.All >= 2.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.1",
       "Microsoft.NETCore.App >= 2.0.0",
@@ -13420,8 +13467,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jiawz\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\kaici\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13430,20 +13476,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\SeniorProject1.csproj",
+      "projectUniqueName": "C:\\Users\\kaici\\Documents\\GitHub\\StudySolutions\\SeniorProject1\\SeniorProject1.csproj",
       "projectName": "SeniorProject1",
-      "projectPath": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\SeniorProject1.csproj",
-      "packagesPath": "C:\\Users\\jiawz\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\obj\\",
+      "projectPath": "C:\\Users\\kaici\\Documents\\GitHub\\StudySolutions\\SeniorProject1\\SeniorProject1.csproj",
+      "packagesPath": "C:\\Users\\kaici\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\kaici\\Documents\\GitHub\\StudySolutions\\SeniorProject1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\jiawz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\kaici\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -13466,32 +13510,36 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "AWSSDK.DynamoDBv2": {
+          "ElCamino.AspNet.Identity.Dynamo.v2": {
             "target": "Package",
-            "version": "[3.3.6, )"
-          },
-          "AWSSDK.Extensions.NETCore.Setup": {
-            "target": "Package",
-            "version": "[3.3.4, )"
-          },
-          "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "[2.0.5, )"
+            "version": "2.0.4"
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.1, )"
+            "version": "2.0.1"
           },
-          "Microsoft.NETCore.App": {
+          "AWSSDK.Extensions.NETCore.Setup": {
             "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
+            "version": "3.3.4"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "2.0.2"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0",
+            "autoReferenced": true
+          },
+          "AWSSDK.DynamoDBv2": {
+            "target": "Package",
+            "version": "3.3.6.1"
+          },
+          "Microsoft.AspNetCore.All": {
+            "target": "Package",
+            "version": "2.0.5"
           }
         },
         "imports": [
@@ -13501,5 +13549,27 @@
         "warn": true
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'ElCamino.AspNet.Identity.Dynamo.v2 2.0.4' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "ElCamino.AspNet.Identity.Dynamo.v2",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.AspNet.Identity.Core 2.2.1' was restored using '.NETFramework,Version=v4.6.1' instead of the project target framework '.NETCoreApp,Version=v2.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.AspNet.Identity.Core",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v2.0"
+      ]
+    }
+  ]
 }

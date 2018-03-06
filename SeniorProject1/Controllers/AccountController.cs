@@ -20,14 +20,14 @@ namespace SeniorProject1.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
@@ -65,11 +65,16 @@ namespace SeniorProject1.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    var user = await _userManager.FindByEmailAsync(model.Email);
+                    if (user.tempPassword)
+                    {
+                        return RedirectToAction(nameof(ResetPassword));
+                    }
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
-                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
+                  //  return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
                 if (result.IsLockedOut)
                 {
@@ -86,7 +91,7 @@ namespace SeniorProject1.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
+        /*
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWith2fa(bool rememberMe, string returnUrl = null)
@@ -142,7 +147,8 @@ namespace SeniorProject1.Controllers
                 return View();
             }
         }
-
+        */
+       /*
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
@@ -196,7 +202,7 @@ namespace SeniorProject1.Controllers
                 return View();
             }
         }
-
+        */
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Lockout()
@@ -220,7 +226,7 @@ namespace SeniorProject1.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -310,7 +316,7 @@ namespace SeniorProject1.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -371,8 +377,26 @@ namespace SeniorProject1.Controllers
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.ResetPasswordCallbackLink(user.Id, code, Request.Scheme);
-                await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+
+                //create and send temporary password
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                var passArray = new char[8];
+                var random = new Random();
+
+                for (int i = 0; i < passArray.Length; i++)
+                {
+                    passArray[i] = chars[random.Next(chars.Length)];
+                }
+
+                var temporaryPass = new String(passArray);
+
+                user.Password = temporaryPass;
+                user.tempPassword = true;
+                /* await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+                    $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");*/
+                await _emailSender.SendEmailAsync(model.Email, "Temporary Password",
+              $"Your temporary password is {temporaryPass}");
+               
                 return RedirectToAction(nameof(ForgotPasswordConfirmation));
             }
 
