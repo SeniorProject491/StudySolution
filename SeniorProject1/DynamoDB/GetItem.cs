@@ -103,6 +103,7 @@ namespace SeniorProject1.DynamoDB
             return null;
         }
 
+        // map the attributes of notification
         private Notification MapNotification(Dictionary<string, AttributeValue> result)
         {
             return new Notification
@@ -115,6 +116,7 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
+        // map the attributes of user
         private User MapUser(Dictionary<string, AttributeValue> result)
         {
             return new User
@@ -125,6 +127,7 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
+        // map the attributes of an event
         private Event MapEvent(Dictionary<string, AttributeValue> result)
         {
             return new Event

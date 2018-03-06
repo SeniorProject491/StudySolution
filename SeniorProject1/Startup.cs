@@ -52,9 +52,6 @@ namespace SeniorProject1
             services.AddSingleton<IGetItem, GetItem>();
             services.AddSingleton<IUpdateItem, UpdateItem>();
             services.AddSingleton<IDeleteItem, DeleteItem>();
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
