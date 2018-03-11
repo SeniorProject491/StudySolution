@@ -9,5 +9,7 @@ namespace SeniorProject1.DynamoDB
     public interface IUpdateItem
     {
         Task<Item> Update(string tableName, int id, double price);
+        Task UpdateNotification(int id, int senderID, string notificationMsg, bool status);
+        Task UpdateEvent(int id, string eventType, string eventName, string location, string occurance, string startTime, string endTime, string notes, List<int> alerts);
     }
 }
