@@ -10,3 +10,15 @@ D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\bin\Debug\n
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.dll
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.pdb
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\bin\Debug\netcoreapp2.0\SeniorProject1.deps.json
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\bin\Debug\netcoreapp2.0\SeniorProject1.runtimeconfig.json
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\bin\Debug\netcoreapp2.0\SeniorProject1.runtimeconfig.dev.json
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\bin\Debug\netcoreapp2.0\SeniorProject1.dll
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\bin\Debug\netcoreapp2.0\SeniorProject1.pdb
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.csprojResolveAssemblyReference.cache
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.csproj.CoreCompileInputs.cache
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.AssemblyInfoInputs.cache
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.AssemblyInfo.cs
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.dll
+C:\Users\Meghan\Source\Repos\seniorproj\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.pdb

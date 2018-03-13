@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
-      "AWSSDK.Core/3.3.19": {
+      "AWSSDK.Core/3.3.21.15": {
         "type": "package",
         "dependencies": {
           "Microsoft.CSharp": "4.0.1",
@@ -18,10 +18,10 @@
           "lib/netstandard1.3/AWSSDK.Core.dll": {}
         }
       },
-      "AWSSDK.DynamoDBv2/3.3.6": {
+      "AWSSDK.DynamoDBv2/3.3.6.1": {
         "type": "package",
         "dependencies": {
-          "AWSSDK.Core": "[3.3.19, 3.4.0)"
+          "AWSSDK.Core": "[3.3.21.15, 3.4.0)"
         },
         "compile": {
           "lib/netstandard1.3/AWSSDK.DynamoDBv2.dll": {}
@@ -5120,12 +5120,12 @@
     }
   },
   "libraries": {
-    "AWSSDK.Core/3.3.19": {
-      "sha512": "zmXaVNKtbQ1RfwHawEkKM7nvkSeWjljwiBKtaUpf2Woni/vmYd5l0gY54dNVN7Z9IsCoxwitGcFfJYOtrE/upg==",
+    "AWSSDK.Core/3.3.21.15": {
+      "sha512": "tdGjSTmj2hZnMW70KZzv89kkFoPFoPTFheGqg2+MJNbIFBo7aFlKyeeDPrGcxq75f69FsyfB5Xe9/gLfYZpv6Q==",
       "type": "package",
-      "path": "awssdk.core/3.3.19",
+      "path": "awssdk.core/3.3.21.15",
       "files": [
-        "awssdk.core.3.3.19.nupkg.sha512",
+        "awssdk.core.3.3.21.15.nupkg.sha512",
         "awssdk.core.nuspec",
         "lib/MonoAndroid10/AWSSDK.Core.XML",
         "lib/MonoAndroid10/AWSSDK.Core.dll",
@@ -5163,13 +5163,13 @@
         "tools/account-management.ps1"
       ]
     },
-    "AWSSDK.DynamoDBv2/3.3.6": {
-      "sha512": "kmhClxbwDd4qptDa1+X3X/KRdeuP6X6NpkCxspZIbEDVxyaKshwaj58NKYd0pRJmKPCb+yZ2WGaFfGgl38PL/A==",
+    "AWSSDK.DynamoDBv2/3.3.6.1": {
+      "sha512": "SSpyizZxoN2saUs8o7t3jJQlZ0QGV3XIIjVUR4JVWuCODVr/9nBHUKtZJCKe1G5r3CzfTQHYFf21czSy9oiZuQ==",
       "type": "package",
-      "path": "awssdk.dynamodbv2/3.3.6",
+      "path": "awssdk.dynamodbv2/3.3.6.1",
       "files": [
         "analyzers/dotnet/cs/AWSSDK.DynamoDBv2.CodeAnalysis.dll",
-        "awssdk.dynamodbv2.3.3.6.nupkg.sha512",
+        "awssdk.dynamodbv2.3.3.6.1.nupkg.sha512",
         "awssdk.dynamodbv2.nuspec",
         "lib/MonoAndroid10/AWSSDK.DynamoDBv2.XML",
         "lib/MonoAndroid10/AWSSDK.DynamoDBv2.dll",
@@ -6621,7 +6621,7 @@
       ]
     },
     "Microsoft.EntityFrameworkCore.Tools/2.0.1": {
-      "sha512": "/z1xawAD0oL5AyFd3vn9E7L6mE2UfEU91KwMDWEp8o0+AOrP4ZocJS5Kot5VYJMfDUeAzDBBZPmJs+r6/YUEiA==",
+      "sha512": "jAb+C+4zyMnVuHesgyiB8piOXvWmMhBcq0kK7IKYswO5Ciguh13b0N0rXCHBee1rTxoWc4xC6utif2JtP9WSbQ==",
       "type": "package",
       "path": "microsoft.entityframeworkcore.tools/2.0.1",
       "files": [
@@ -13411,7 +13411,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
-      "AWSSDK.DynamoDBv2 >= 3.3.6",
+      "AWSSDK.DynamoDBv2 >= 3.3.6.1",
       "AWSSDK.Extensions.NETCore.Setup >= 3.3.4",
       "Microsoft.AspNetCore.All >= 2.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.1",
@@ -13420,8 +13420,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jiawz\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
+    "C:\\Users\\Meghan\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -13430,20 +13429,18 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\SeniorProject1.csproj",
+      "projectUniqueName": "C:\\Users\\Meghan\\Source\\Repos\\seniorproj\\SeniorProject1\\SeniorProject1.csproj",
       "projectName": "SeniorProject1",
-      "projectPath": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\SeniorProject1.csproj",
-      "packagesPath": "C:\\Users\\jiawz\\.nuget\\packages\\",
-      "outputPath": "D:\\School\\Senior Project\\StudySolution\\SeniorProject1\\SeniorProject1\\obj\\",
+      "projectPath": "C:\\Users\\Meghan\\Source\\Repos\\seniorproj\\SeniorProject1\\SeniorProject1.csproj",
+      "packagesPath": "C:\\Users\\Meghan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Meghan\\Source\\Repos\\seniorproj\\SeniorProject1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\jiawz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
+        "C:\\Users\\Meghan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
@@ -13466,32 +13463,32 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
-          "AWSSDK.DynamoDBv2": {
-            "target": "Package",
-            "version": "[3.3.6, )"
-          },
-          "AWSSDK.Extensions.NETCore.Setup": {
-            "target": "Package",
-            "version": "[3.3.4, )"
-          },
-          "Microsoft.AspNetCore.All": {
-            "target": "Package",
-            "version": "[2.0.5, )"
-          },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.1, )"
+            "version": "2.0.1"
           },
-          "Microsoft.NETCore.App": {
+          "AWSSDK.Extensions.NETCore.Setup": {
             "target": "Package",
-            "version": "[2.0.0, )",
-            "autoReferenced": true
+            "version": "3.3.4"
           },
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[2.0.2, )"
+            "version": "2.0.2"
+          },
+          "Microsoft.NETCore.App": {
+            "target": "Package",
+            "version": "2.0",
+            "autoReferenced": true
+          },
+          "AWSSDK.DynamoDBv2": {
+            "target": "Package",
+            "version": "3.3.6.1"
+          },
+          "Microsoft.AspNetCore.All": {
+            "target": "Package",
+            "version": "2.0.5"
           }
         },
         "imports": [
