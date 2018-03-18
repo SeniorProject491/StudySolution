@@ -14,6 +14,7 @@ namespace SeniorProject1.DynamoDB
     {
         private readonly IAmazonDynamoDB _dynamoDbClient;
         private static string _tableName;
+        private static string _fileName;
         private AmazonDynamoDBConfig ddbConfig = new AmazonDynamoDBConfig();
 
         public LoadTables(IAmazonDynamoDB dynamoDbClient)
@@ -25,7 +26,9 @@ namespace SeniorProject1.DynamoDB
         {
             try
             {
-                LoadUserTable();
+                LoadTable("User", "TableData\\userData.json");
+                LoadTable("Event", "TableData\\eventData.json");
+                LoadTable("Notification", "TableData\\notificationData.json");
             }
             catch (Exception e)
             {
@@ -35,22 +38,24 @@ namespace SeniorProject1.DynamoDB
 
         }
 
-        public void LoadUserTable()
+        //populate the table
+        public void LoadTable(string tableName, string fileName)
         {
             // First, read in the JSON data from the moviedate.json file
-            _tableName = "User";
+            _tableName = tableName;
+            _fileName = fileName;
             StreamReader sr = null;
             JsonTextReader jtr = null;
             JArray userArray = null;
             try
             {
-                sr = new StreamReader("TableData\\userData.json");
+                sr = new StreamReader(_fileName);
                 jtr = new JsonTextReader(sr);
                 userArray = (JArray)JToken.ReadFrom(jtr);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("\n Error: could not read from the 'userData.json' file, because: " + ex.Message);
+                Console.WriteLine("\n Error: could not read from the " + _fileName + " file, because: " + ex.Message);
                 throw;
             }
             finally
@@ -85,6 +90,7 @@ namespace SeniorProject1.DynamoDB
             }
         }
 
+        //get the table object before loading
         public Table GetTableObject(string tableName)
         {
             // Now, create a Table object for the specified table

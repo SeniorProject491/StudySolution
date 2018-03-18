@@ -4,8 +4,48 @@
     "UserID": 1,
     "EventType": "Personal",
     "EventName": "Team Meeting",
-    "Location": "CSULB",
+    "EventLocation": "CSULB",
     "Occurrence": "None",
-    "EventStartTime": ""
+    "EventStartTime": "2018-09-02T11:00:00",
+    "EventEndTime": "2018-09-02T13:00:00",
+    "Alert": [
+      5,
+      10
+    ],
+    "EventStatus": true,
+    "Notes": "none"
+  },
+
+  {
+    "EventID": 1,
+    "UserID": 1,
+    "EventType": "Personal",
+    "EventName": "Dentist appointment",
+    "EventLocation": "Irvine",
+    "Occurrence": "None",
+    "EventStartTime": "2018-10-02T10:00:00",
+    "EventEndTime": "2018-10-02T10:30:00",
+    "Alert": [
+      10
+    ],
+    "EventStatus": true,
+    "Notes": "none"
+  },
+
+  {
+    "EventID": 2,
+    "UserID": 3,
+    "EventType": "Business",
+    "EventName": "Interview",
+    "EventLocation": "Oakland",
+    "Occurrence": "None",
+    "EventStartTime": "2018-01-02T11:00:00",
+    "EventEndTime": "2018-01-02T13:00:00",
+    "Alert": [
+      10,
+      15
+    ],
+    "EventStatus": true,
+    "Notes": "none"
   }
 ]

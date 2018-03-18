@@ -51,6 +51,7 @@ namespace SeniorProject1.Controllers
             return Ok();
         }
 
+        //get the item by the objects primary id
         [Route("getitems")]
         public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
         {
@@ -59,6 +60,7 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
+        //get the item by the user's ID
         [Route("getuseritems")]
         public async Task<IActionResult> GetUserItems([FromQuery] string tableName, int? id)
         {
@@ -67,6 +69,7 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
+        
         [HttpPut]
         [Route("updateitem")]
         public async Task<IActionResult> UpdateItem([FromQuery] string tableName, int id, double price)
