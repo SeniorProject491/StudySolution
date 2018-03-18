@@ -46,7 +46,7 @@ namespace SeniorProject1.DynamoDB
 
             return new PutItemRequest
             {
-                TableName = "TempDynamoDbTable",
+                TableName = "Event",
                 Item = userEvent
             };
         }
@@ -72,7 +72,7 @@ namespace SeniorProject1.DynamoDB
 
             return new PutItemRequest
             {
-                TableName = "TempDynamoDbTable",
+                TableName = "Notification",
                 Item = userNotification
             };
         }
@@ -86,7 +86,7 @@ namespace SeniorProject1.DynamoDB
 
         private PutItemRequest RequestBuilder(int id, string username, string email, string name, string password)
         {
-            var userNotification = new Dictionary<string, AttributeValue>
+            var newUser = new Dictionary<string, AttributeValue>
             {
                 {"UserID", new AttributeValue {N = id.ToString()}},
                 {"UserName", new AttributeValue {N = username}},
@@ -97,8 +97,8 @@ namespace SeniorProject1.DynamoDB
 
             return new PutItemRequest
             {
-                TableName = "TempDynamoDbTable",
-                Item = userNotification
+                TableName = "Users",
+                Item = newUser
             };
         }
 
