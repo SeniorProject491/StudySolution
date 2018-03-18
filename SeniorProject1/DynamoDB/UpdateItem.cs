@@ -1,23 +1,27 @@
 ﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.Model;
+using SeniorProject1.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SeniorProject1.Models;
-using Amazon.DynamoDBv2.Model;
 
 namespace SeniorProject1.DynamoDB
 {
     public class UpdateItem : IUpdateItem
     {
-        private static readonly string tableName = "TempDynamoDbTable";
+        private static string _tableName;
         private readonly IAmazonDynamoDB _dynamoDbClient;
         private IGetItem _getItem;
+        private IPutItem _putItem;
+        private IDeleteItem _deleteItem;
 
-        public UpdateItem(IAmazonDynamoDB dynamoDbClient, IGetItem getItem)
+        public UpdateItem(IAmazonDynamoDB dynamoDbClient, IGetItem getItem, IPutItem putItem, IDeleteItem deleteItem)
         {
             _dynamoDbClient = dynamoDbClient;
             _getItem = getItem;
+            _putItem = putItem;
+            _deleteItem = deleteItem;
         }
 
         public async Task<Item> Update (string tableName, int id, double price)
@@ -39,6 +43,59 @@ namespace SeniorProject1.DynamoDB
                 Price = Convert.ToDouble(result.Attributes["Price"].N)
             };
         }
+
+        public async Task UpdateUser(int id, string userName , string Email, string password)
+        {
+            _tableName = "User";
+            //get the current object with the id
+            var currentUser = await _getItem.GetItems(_tableName, id);
+
+            //get the sort keys of the previous one
+            var currentUserName = currentUser.User.Select(p => p.UserName).FirstOrDefault();
+
+            //delete the current event with id
+            var response = await _deleteItem.Delete(_tableName, id);
+
+            //create a new object with the id and sort key
+            //_putItem.AddNewEvent(id, userName, Email, password)
+
+
+        }
+
+        public async Task UpdateEvent(int id, string eventType, string eventName, string location, string occurance, string startTime, string endTime, string notes, List<int> alerts)
+        {
+            _tableName = "Event";
+            //get the current object with the id
+            var currentEvent = await _getItem.GetItems(_tableName, id);
+
+            //get the sort keys of the previous one
+            var userID = currentEvent.Event.Select(p => p.UserID).FirstOrDefault();
+
+            //delete the current event with id
+            var response = await _deleteItem.Delete(_tableName, id);
+
+            //create a new object with the id and sort key
+            //_putItem.AddNewEvent(id, userID, eventType, eventName, location, occurance, startTime, endTime, alerts, notes)           
+            
+           
+        }
+
+        public async Task UpdateNotification(int id, int senderID, string notificationMsg, bool status)
+        {
+            _tableName = "Notification";
+            //get the current object with the id
+            var currentNotification = await _getItem.GetItems(_tableName, id);
+
+            //get the sort keys of the previous one
+            var receiverID = currentNotification.Notification.Select(p => p.ReceiverID).FirstOrDefault();
+
+            //delete the current event with id
+            var response = await _deleteItem.Delete(_tableName, id);
+
+            //create a new object with the id and sort key
+            //_putItem.AddNewEvent(id, receiverID, senderID, notificationMsg, status)           
+        }
+
 
         private UpdateItemRequest RequestBuilder(int id, double price, double currentPrice, string replyDateTime)
         {
@@ -73,7 +130,7 @@ namespace SeniorProject1.DynamoDB
                 UpdateExpression = "SET #P = :newprice",
                 ConditionExpression = "#P = :currprice",
 
-                TableName = tableName,
+                TableName = _tableName,
                 ReturnValues = "ALL_NEW"
             };
 

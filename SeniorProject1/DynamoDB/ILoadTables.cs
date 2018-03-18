@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace SeniorProject1.DynamoDB
 {
-    public interface ICreateTable
+    public interface ILoadTables
     {
-        void CreateDynamoDbTables();
+        void LoadDynamDBTables();
     }
 }

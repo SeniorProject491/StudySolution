@@ -15,20 +15,30 @@ namespace SeniorProject1.Controllers
         private readonly IGetItem _getItem;
         private readonly IUpdateItem _updateItem;
         private readonly IDeleteItem _deleteItem;
+        private readonly ILoadTables _loadTables;
 
-        public DynamoDbController(ICreateTable createTable, IPutItem putItem, IGetItem getItem, IUpdateItem updateItem, IDeleteItem deleteItem)
+        public DynamoDbController(ICreateTable createTable, IPutItem putItem, IGetItem getItem, IUpdateItem updateItem, IDeleteItem deleteItem, ILoadTables loadTables)
         {
             _createTable = createTable;
             _putItem = putItem;
             _getItem = getItem;
             _updateItem = updateItem;
             _deleteItem = deleteItem;
+            _loadTables = loadTables;
         }
 
         [Route("createtable")]
         public IActionResult CreateDynamoDbTable()
         {
-            _createTable.CreateDynamoDbTable();
+            _createTable.CreateDynamoDbTables();
+
+            return Ok();
+        }
+
+        [Route("loaddata")]
+        public IActionResult LoadDynamoDBTable()
+        {
+            _loadTables.LoadDynamDBTables();
 
             return Ok();
         }
@@ -41,6 +51,7 @@ namespace SeniorProject1.Controllers
             return Ok();
         }
 
+        //get the item by the objects primary id
         [Route("getitems")]
         public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
         {
@@ -49,6 +60,7 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
+        //get the item by the user's ID
         [Route("getuseritems")]
         public async Task<IActionResult> GetUserItems([FromQuery] string tableName, int? id)
         {
@@ -57,6 +69,7 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
+        
         [HttpPut]
         [Route("updateitem")]
         public async Task<IActionResult> UpdateItem([FromQuery] string tableName, int id, double price)
@@ -64,6 +77,24 @@ namespace SeniorProject1.Controllers
             var response = await _updateItem.Update(tableName, id, price);
 
             return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("updateevent")]
+        public async Task<IActionResult> UpdateEvent([FromQuery] int id, string eventType, string eventName, string location, string occurance, string startTime, string endTime, string notes, List<int> alerts)
+        {
+            await _updateItem.UpdateEvent(id, eventType, eventName, location, occurance, startTime, endTime, notes, alerts);
+
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("updatenotification")]
+        public async Task<IActionResult> UpdateNotification([FromQuery] int id, int senderID, string notificationMsg, bool status)
+        {
+            await _updateItem.UpdateNotification(id, senderID, notificationMsg, status);
+
+            return Ok();
         }
 
         [HttpDelete]

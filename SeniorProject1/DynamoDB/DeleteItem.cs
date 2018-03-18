@@ -26,6 +26,7 @@ namespace SeniorProject1.DynamoDB
             _getItem = getItem;
         }
 
+        //delete item with primary key "id"
         public async Task<DeleteItemResponse> Delete(String tableName, int id)
         {
             _tableName = tableName;

@@ -7,6 +7,6 @@ D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\n
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.AssemblyInfoInputs.cache
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.AssemblyInfo.cs
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\bin\Debug\netcoreapp2.0\SeniorProject1.pdb
-D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.dll
 D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\SeniorProject1.pdb
+D:\School\Senior Project\StudySolution\SeniorProject1\SeniorProject1\obj\Debug\netcoreapp2.0\UserSecretsAssemblyInfo.cs
