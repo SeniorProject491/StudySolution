@@ -58,6 +58,8 @@ namespace SeniorProject1.DynamoDB
 
             //create a new object with the id and sort key
             //_putItem.AddNewEvent(id, userID, eventType, eventName, location, occurance, startTime, endTime, alerts, notes)           
+            
+           
         }
 
         public async Task UpdateNotification(int id, int senderID, string notificationMsg, bool status)

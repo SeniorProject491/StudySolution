@@ -1,0 +1,11 @@
+﻿[
+  {
+    "EventID": 0,
+    "UserID": 1,
+    "EventType": "Personal",
+    "EventName": "Team Meeting",
+    "Location": "CSULB",
+    "Occurrence": "None",
+    "EventStartTime": ""
+  }
+]

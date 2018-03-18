@@ -11,18 +11,20 @@ namespace SeniorProject1.DynamoDB
     public class CreateTable : ICreateTable
     {
         private readonly IAmazonDynamoDB _dynamoDbClient;
-        private static readonly string tableName = "TempDynamoDbTable";
+        private static string tableName;
 
         public CreateTable(IAmazonDynamoDB dynamoDbClient)
         {
             _dynamoDbClient = dynamoDbClient;
         }
 
-        public void CreateDynamoDbTable()
+        public void CreateDynamoDbTables()
         {
             try
             {
-                CreateTempTable();
+                CreateUserTable();
+                CreateEventTable();
+                CreateNotificationTable();
             }
             catch (Exception e)
             {
@@ -31,38 +33,131 @@ namespace SeniorProject1.DynamoDB
             }
         }
 
-        private void CreateTempTable()
+        private void CreateUserTable()
         {
             Console.WriteLine("Creating Table");
+            tableName = "User";
 
             var request = new CreateTableRequest
             {
                 AttributeDefinitions = new List<AttributeDefinition>
-        {
-            new AttributeDefinition
-            {
-                AttributeName = "Id",
-                AttributeType = "N"
-            },
-            new AttributeDefinition
-            {
-                AttributeName = "ReplyDateTime",
-                AttributeType = "N"
-            }
-        },
+                {
+                    new AttributeDefinition
+                    {
+                        AttributeName = "UserID",
+                        AttributeType = "N"
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "UserName",
+                        AttributeType = "S"
+                    }
+                },
                 KeySchema = new List<KeySchemaElement>
+                {
+                    new KeySchemaElement
+                    {
+                        AttributeName = "UserID",
+                        KeyType = "HASH" // Partition Key
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "UserName",
+                        KeyType = "Range" // Sort Key
+                    }
+                },
+                ProvisionedThroughput = new ProvisionedThroughput
+                {
+                    ReadCapacityUnits = 5,
+                    WriteCapacityUnits = 5
+                },
+                TableName = tableName
+            };
+
+            var response = _dynamoDbClient.CreateTableAsync(request);
+
+            WaitUntilTableReady(tableName);
+        }
+
+        private void CreateEventTable()
         {
-            new KeySchemaElement
+            Console.WriteLine("Creating Table");
+            tableName = "Event";
+
+            var request = new CreateTableRequest
             {
-                AttributeName = "Id",
-                KeyType = "HASH" // Partition Key
-            },
-            new KeySchemaElement
+                AttributeDefinitions = new List<AttributeDefinition>
+                {
+                    new AttributeDefinition
+                    {
+                        AttributeName = "EventID",
+                        AttributeType = "N"
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "UserID",
+                        AttributeType = "N"
+                    }
+                },
+                KeySchema = new List<KeySchemaElement>
+                {
+                    new KeySchemaElement
+                    {
+                        AttributeName = "EventID",
+                        KeyType = "HASH" // Partition Key
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "UserID",
+                        KeyType = "Range" // Sort Key
+                    }
+                },
+                ProvisionedThroughput = new ProvisionedThroughput
+                {
+                    ReadCapacityUnits = 5,
+                    WriteCapacityUnits = 5
+                },
+                TableName = tableName
+            };
+
+            var response = _dynamoDbClient.CreateTableAsync(request);
+
+            WaitUntilTableReady(tableName);
+        }
+
+        private void CreateNotificationTable()
+        {
+            Console.WriteLine("Creating Table");
+            tableName = "Notification";
+
+            var request = new CreateTableRequest
             {
-                AttributeName = "ReplyDateTime",
-                KeyType = "Range" // Sort Key
-            }
-        },
+                AttributeDefinitions = new List<AttributeDefinition>
+                {
+                    new AttributeDefinition
+                    {
+                        AttributeName = "NotificationID",
+                        AttributeType = "N"
+                    },
+                    new AttributeDefinition
+                    {
+                        AttributeName = "ReceiverID",
+                        AttributeType = "N"
+                    }
+                },
+                KeySchema = new List<KeySchemaElement>
+                {
+                    new KeySchemaElement
+                    {
+                        AttributeName = "NotificationID",
+                        KeyType = "HASH" // Partition Key
+                    },
+                    new KeySchemaElement
+                    {
+                        AttributeName = "ReceiverID",
+                        KeyType = "Range" // Sort Key
+                    }
+                },
                 ProvisionedThroughput = new ProvisionedThroughput
                 {
                     ReadCapacityUnits = 5,
