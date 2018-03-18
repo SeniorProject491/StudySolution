@@ -44,6 +44,24 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
+        public async Task UpdateUser(int id, string userName , string Email, string password)
+        {
+            _tableName = "User";
+            //get the current object with the id
+            var currentUser = await _getItem.GetItems(_tableName, id);
+
+            //get the sort keys of the previous one
+            var currentUserName = currentUser.User.Select(p => p.UserName).FirstOrDefault();
+
+            //delete the current event with id
+            var response = await _deleteItem.Delete(_tableName, id);
+
+            //create a new object with the id and sort key
+            //_putItem.AddNewEvent(id, userName, Email, password)
+
+
+        }
+
         public async Task UpdateEvent(int id, string eventType, string eventName, string location, string occurance, string startTime, string endTime, string notes, List<int> alerts)
         {
             _tableName = "Event";
