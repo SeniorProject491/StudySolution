@@ -1,0 +1,25 @@
+﻿[
+  {
+    "NotificationID": 0,
+    "ReceiverID": 3,
+    "SenderID": 1,
+    "NotificationMsg": "Friend Request",
+    "NotificationStatus": false
+  },
+
+  {
+    "NotificationID": 1,
+    "ReceiverID": 0,
+    "SenderID": 3,
+    "NotificationMsg": "Invitation to group",
+    "NotificationStatus": false
+  },
+
+  {
+    "NotificationID": 2,
+    "ReceiverID": 1,
+    "SenderID": 0,
+    "NotificationMsg": "Friend Request",
+    "NotificationStatus": true
+  }
+]

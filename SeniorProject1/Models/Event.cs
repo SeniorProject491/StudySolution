@@ -25,7 +25,9 @@ namespace SeniorProject1.Models
 
         public string Occurrence { set; get; }
 
-        public DateTime EventDateTime { set; get; }
+        public DateTime EventStartTime { set; get; }
+
+        public DateTime EventEndTime { set; get; }
 
         public List<int> Alert { set; get; }
 
