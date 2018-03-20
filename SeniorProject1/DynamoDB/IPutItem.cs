@@ -12,6 +12,6 @@ namespace SeniorProject1.DynamoDB
 
         Task AddNotification(int id, int sender, int receiver, string message, bool status);
 
-        Task AddNewUser(int id, string username, string email, string name, string password);
+        Task AddNewUser(int id, string username, string email);
     }
 }         
