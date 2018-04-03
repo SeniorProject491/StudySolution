@@ -57,12 +57,11 @@ namespace SeniorProject1.DynamoDB
             var response = await _deleteItem.Delete(_tableName, id);
 
             //create a new object with the id and sort key
-            //_putItem.AddNewEvent(id, userName, Email, password)
-
+            await _putItem.AddNewUser(id, currentUserName, Email, password);
 
         }
 
-        public async Task UpdateEvent(int id, string eventType, string eventName, string location, string occurance, string startTime, string endTime, string notes, List<int> alerts)
+        public async Task UpdateEvent(int id, string eventType, string eventName, string location, string occurrance, string startTime, string endTime, string notes, bool status)
         {
             _tableName = "Event";
             //get the current object with the id
@@ -75,7 +74,7 @@ namespace SeniorProject1.DynamoDB
             var response = await _deleteItem.Delete(_tableName, id);
 
             //create a new object with the id and sort key
-            //_putItem.AddNewEvent(id, userID, eventType, eventName, location, occurance, startTime, endTime, alerts, notes)           
+            await _putItem.AddNewEvent(id, userID, eventType, eventName, location, occurrance, startTime, endTime, notes, status);      
             
            
         }
@@ -93,7 +92,7 @@ namespace SeniorProject1.DynamoDB
             var response = await _deleteItem.Delete(_tableName, id);
 
             //create a new object with the id and sort key
-            //_putItem.AddNewEvent(id, receiverID, senderID, notificationMsg, status)           
+            await _putItem.AddNotification(id, senderID, receiverID, notificationMsg, status);         
         }
 
 

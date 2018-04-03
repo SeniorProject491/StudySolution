@@ -26,9 +26,9 @@ namespace SeniorProject1.DynamoDB
         {
             try
             {
-                LoadTable("User", "TableData\\userData.json");
+                //LoadTable("User", "TableData\\userData.json");
                 LoadTable("Event", "TableData\\eventData.json");
-                LoadTable("Notification", "TableData\\notificationData.json");
+                //LoadTable("Notification", "TableData\\notificationData.json");
             }
             catch (Exception e)
             {

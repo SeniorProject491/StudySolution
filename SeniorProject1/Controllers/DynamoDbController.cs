@@ -72,42 +72,55 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
+
         [HttpPut]
-        [Route("putEvent")]
-        public IActionResult PutItem([FromQuery] int id, int userId, string eventType, string eventName, string location, string occurance, string startTime,
-            string endTime, List<int> alerts, string notes, bool status)
+        [Route("putevent")]
+        public IActionResult PutEvent([FromQuery] int eventId, int userId, string eventType, string eventName, string location, string occurrance, string startTime,
+            string endTime, string notes, bool status)
         {
-            _putItem.AddNewEvent(id, userId, eventType, eventName, location, occurance, startTime, endTime, alerts, notes, status);
+            _putItem.AddNewEvent(eventId, userId, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
             return Ok();
         }
 
         [HttpPut]
-        [Route("putNotification")]
+        [Route("putnotification")]
         public IActionResult PutNotification([FromQuery] int id, int sender, int receiver, string message, bool status)
         {
             _putItem.AddNotification(id, sender, receiver, message, status);
             return Ok();
         }
 
-        [Route("updateevent")]
-        public async Task<IActionResult> UpdateEvent([FromQuery] int id, string eventType, string eventName, string location, string occurance, string startTime, string endTime, string notes, List<int> alerts)
+        [HttpPut]
+        [Route("putuser")]
+        public IActionResult PutUser([FromQuery] int id, string username, string email, string password)
         {
-            await _updateItem.UpdateEvent(id, eventType, eventName, location, occurance, startTime, endTime, notes, alerts);
+            _putItem.AddNewUser(id, username, email, password);
             return Ok();
         }
 
         [HttpPut]
-        [Route("putUser")]
-        public IActionResult PutUser([FromQuery] int id, string username, string email)
+        [Route("updateevent")]
+        public async Task<IActionResult> UpdateEvent([FromQuery] int id, string eventType, string eventName, string location, string occurrance, 
+            string startTime, string endTime,string notes, bool status)
         {
-            _putItem.AddNewUser(id, username, email);
+            await _updateItem.UpdateEvent(id, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
             return Ok();
         }
 
+
+        [HttpPut]
         [Route("updatenotification")]
         public async Task<IActionResult> UpdateNotification([FromQuery] int id, int senderID, string notificationMsg, bool status)
         {
             await _updateItem.UpdateNotification(id, senderID, notificationMsg, status);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("updateuser")]
+        public IActionResult UpdateUser([FromQuery] int id, string userName, string email, string password)
+        {
+            _updateItem.UpdateUser(id, userName, email, password);
             return Ok();
         }
 
