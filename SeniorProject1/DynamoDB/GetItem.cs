@@ -34,7 +34,7 @@ namespace SeniorProject1.DynamoDB
 
             if (_tableName == "User")
             {
-                _projectionExpression = "UserID, UserName, Email";
+                _projectionExpression = "UserID, UserName, Email, Password";
                 _filterExpression = "UserID = :v_Id";
 
                 queryRequest = RequestBuilder(id);
@@ -45,7 +45,7 @@ namespace SeniorProject1.DynamoDB
                 };
             } else if (_tableName == "Event")
             {                
-                _projectionExpression = "EventID, UserID, EventName, EventType, Alert, EventStartTime, EventEndTime, EventLocation, Notes, Occurrence, EventStatus";
+                _projectionExpression = "EventID, UserID, EventName, EventType, Alert, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
                 _filterExpression = "UserID = :v_Id";
                 queryRequest = RequestBuilder(id);
                 result = await ScanAsync(queryRequest);
@@ -123,7 +123,8 @@ namespace SeniorProject1.DynamoDB
             {
                 UserID = Convert.ToInt32(result["UserID"].N),
                 UserName = result["UserName"].S,
-                Email = result["Email"].S
+                Email = result["Email"].S,
+                Password = result["Password"].S
             };
         }
 
@@ -137,11 +138,10 @@ namespace SeniorProject1.DynamoDB
                 EventType = result["EventType"].S,
                 EventName = result["EventName"].S,
                 Location = result["EventLocation"].S,
-                Occurrence = result["Occurrance"].S,
+                Occurrance = result["Occurrance"].S,
                 EventStartTime = Convert.ToDateTime(result["EventStartTime"].S),
                 EventEndTime = Convert.ToDateTime(result["EventEndTime"].S),
-                //Alerts = result["Alerts"].NS.Select(int.Parse).ToList(),
-                Status = result["EventStatus"].BOOL,
+                //Status = result["EventStatus"].BOOL,
                 Notes = result["Notes"].S
             };
         }

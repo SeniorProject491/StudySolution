@@ -64,10 +64,10 @@ namespace SeniorProject1.Controllers
 
         
         [HttpPut]
-        [Route("updateitem")]
-        public async Task<IActionResult> UpdateItem([FromQuery] string tableName, int id, double price)
+        [Route("updateuser")]
+        public async Task<IActionResult >UpdateUser([FromQuery] int id, string userName, string email, string password)
         {
-            var response = await _updateItem.Update(tableName, id, price);
+            var response = await _updateItem.UpdateUser(id, userName, email, password);
 
             return Ok(response);
         }
@@ -116,13 +116,13 @@ namespace SeniorProject1.Controllers
             return Ok();
         }
 
-        [HttpPut]
-        [Route("updateuser")]
-        public IActionResult UpdateUser([FromQuery] int id, string userName, string email, string password)
-        {
-            _updateItem.UpdateUser(id, userName, email, password);
-            return Ok();
-        }
+        //[HttpPut]
+        //[Route("updateuser")]
+        //public IActionResult UpdateUser([FromQuery] int id, string userName, string email, string password)
+        //{
+        //    _updateItem.UpdateUser(id, userName, email, password);
+        //    return Ok();
+        //}
 
         [HttpDelete]
         [Route("deleteitem")]
