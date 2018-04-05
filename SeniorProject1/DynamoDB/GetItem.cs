@@ -79,7 +79,7 @@ namespace SeniorProject1.DynamoDB
 
            if (_tableName == "Event")
             {
-                _projectionExpression = "EventID, UserID, EventName, EventType, Alert, EventStartTime, EventEndTime, EventLocation, Notes, Occurrence, EventStatus";
+                _projectionExpression = "EventID, UserID, EventName, EventType, Alerts, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
                 _filterExpression = "EventID = :v_Id";
                 queryRequest = RequestBuilder(id);
                 result = await ScanAsync(queryRequest);
@@ -137,10 +137,10 @@ namespace SeniorProject1.DynamoDB
                 EventType = result["EventType"].S,
                 EventName = result["EventName"].S,
                 Location = result["EventLocation"].S,
-                Occurrence = result["Occurrence"].S,
+                Occurrence = result["Occurrance"].S,
                 EventStartTime = Convert.ToDateTime(result["EventStartTime"].S),
                 EventEndTime = Convert.ToDateTime(result["EventEndTime"].S),
-                Alert = result["Alert"].NS.Select(int.Parse).ToList(),
+                //Alerts = result["Alerts"].NS.Select(int.Parse).ToList(),
                 Status = result["EventStatus"].BOOL,
                 Notes = result["Notes"].S
             };

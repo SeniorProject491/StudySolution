@@ -18,31 +18,31 @@ namespace SeniorProject1.DynamoDB
         }
 
         public async Task AddNewEvent(int id, int userId, string eventType, string eventName, string location, string occurance, string startTime,
-            string endTime, List<int> alerts, string notes, bool status)
+            string endTime, string notes, bool status)
         {
-            var queryRequest = RequestBuilder(id, userId, eventType, eventName, location, occurance, startTime, endTime, alerts, notes, status);
+            var queryRequest = RequestBuilder(id, userId, eventType, eventName, location, occurance, startTime, endTime, notes, status);
             await PutItemAsync(queryRequest);
         }
 
-        private PutItemRequest RequestBuilder(int id, int userId, string eventType, string eventName, string location, string occurance, string startTime,
-            string endTime, List<int> alerts, string notes, bool status)
+        private PutItemRequest RequestBuilder(int id, int userId, string eventType, string eventName, string location, string occurrance, string startTime,
+            string endTime, string notes, bool status)
         {
             var userEvent = new Dictionary<string, AttributeValue>()
             {
-                {"EventId", new AttributeValue {N = id.ToString()}},
-                {"UserId", new AttributeValue {N = userId.ToString()}},
-                {"EventType", new AttributeValue {N = eventType}},
-                {"EventName", new AttributeValue {N = eventName}},
-                {"EventLocation", new AttributeValue {N = location}},
-                {"Occurance", new AttributeValue {N = occurance}},
-                {"EventStartTime", new AttributeValue {N = startTime}},
-                {"EventEndTime", new AttributeValue {N = endTime}},
-                {"Alert", new AttributeValue {N = alerts.ToString()}},
-                {"Notes", new AttributeValue {N = notes}},
-                {"EventStatus", new AttributeValue {N = status.ToString()}}
+                {"EventID", new AttributeValue {N = id.ToString()}},
+                {"UserID", new AttributeValue {N = userId.ToString()}},
+                {"EventType", new AttributeValue {S = eventType}},
+                {"EventName", new AttributeValue {S = eventName}},
+                {"EventLocation", new AttributeValue {S = location}},
+                {"Occurrance", new AttributeValue {S = occurrance}},
+                {"EventStartTime", new AttributeValue {S = startTime}},
+                {"EventEndTime", new AttributeValue {S = endTime}},
+                //{"Alerts", new AttributeValue {NS = alerts.ConvertAll(delegate(int i) { return i.ToString(); })} },
+                {"Notes", new AttributeValue {S = notes}},
+                {"EventStatus", new AttributeValue {BOOL = status}}
             };
 
-            return new PutItemRequest
+            return new PutItemRequest()
             {
                 TableName = "Event",
                 Item = userEvent
@@ -75,19 +75,20 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
-        public async Task AddNewUser(int id, string username, string email)
+        public async Task AddNewUser(int id, string username, string email, string password)
         {
-            var queryRequest = RequestBuilder(id, username, email);
+            var queryRequest = RequestBuilder(id, username, email, password);
             await PutItemAsync(queryRequest);
         }
 
-        private PutItemRequest RequestBuilder(int id, string username, string email)
+        private PutItemRequest RequestBuilder(int id, string username, string email, string password)
         {
             var newUser = new Dictionary<string, AttributeValue>()
             {
                 {"UserID", new AttributeValue {N = id.ToString()}},
                 {"UserName", new AttributeValue {S = username}},
-                {"Email", new AttributeValue {S = email}}
+                {"Email", new AttributeValue {S = email}},
+                {"Password", new AttributeValue{S = password} }
             };
 
             return new PutItemRequest

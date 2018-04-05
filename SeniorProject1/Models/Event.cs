@@ -29,7 +29,7 @@ namespace SeniorProject1.Models
 
         public DateTime EventEndTime { set; get; }
 
-        public List<int> Alert { set; get; }
+        //public List<int> Alerts { set; get; }
 
         //true = available
         public bool Status { set; get; }
