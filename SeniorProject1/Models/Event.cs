@@ -23,7 +23,7 @@ namespace SeniorProject1.Models
 
         public string Location { set; get; }
 
-        public string Occurrence { set; get; }
+        public string Occurrance { set; get; }
 
         public DateTime EventStartTime { set; get; }
 

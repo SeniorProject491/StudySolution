@@ -24,42 +24,45 @@ namespace SeniorProject1.DynamoDB
             _deleteItem = deleteItem;
         }
 
-        public async Task<Item> Update (string tableName, int id, double price)
+        public async Task<User> UpdateUser(int id, string userName, string email, string password)
         {
-            var response = await _getItem.GetItems(tableName, id);
+            var response = await _getItem.GetUserItems("User", id);
 
-            var currentPrice = response.Items.Select(p => p.Price).FirstOrDefault();
+            var currentEmail = response.User.Select(p => p.Email).FirstOrDefault();
 
-            var replyDateTime = response.Items.Select(p => p.ReplyDateTime).FirstOrDefault();
+            var currentPassword = response.User.Select(p => p.Password).FirstOrDefault();
 
-            var request = RequestBuilder(id, price, currentPrice, replyDateTime);
+            var currentUserName = response.User.Select(p => p.UserName).FirstOrDefault();
+
+            var request = RequestBuilder(id, userName, email, currentEmail, password, currentPassword);
 
             var result = await UpdatItemAsync(request);
 
-            return new Item
+            return new User
             {
-                Id = Convert.ToInt32(result.Attributes["Id"].N),
-                ReplyDateTime = result.Attributes["ReplyDateTime"].N,
-                Price = Convert.ToDouble(result.Attributes["Price"].N)
+                UserID = Convert.ToInt32(result.Attributes["UserID"].N),
+                UserName = result.Attributes["UserName"].S,
+                Email = result.Attributes["Email"].S,
+                Password = result.Attributes["Password"].S
             };
         }
 
-        public async Task UpdateUser(int id, string userName , string Email, string password)
-        {
-            _tableName = "User";
-            //get the current object with the id
-            var currentUser = await _getItem.GetItems(_tableName, id);
+        //public async Task UpdateUser(int id, string userName , string Email, string password)
+        //{
+        //    _tableName = "User";
+        //    //get the current object with the id
+        //    var currentUser = await _getItem.GetUserItems(_tableName, id);
 
-            //get the sort keys of the previous one
-            var currentUserName = currentUser.User.Select(p => p.UserName).FirstOrDefault();
+        //    //get the sort keys of the previous one
+        //    var currentUserName = currentUser.User.Select(p => p.UserName).FirstOrDefault();
 
-            //delete the current event with id
-            var response = await _deleteItem.Delete(_tableName, id);
+        //    //delete the current event with id
+        //    var response = await _deleteItem.Delete(_tableName, id);
 
-            //create a new object with the id and sort key
-            await _putItem.AddNewUser(id, currentUserName, Email, password);
+        //    //create a new object with the id and sort key
+        //    await _putItem.AddNewUser(id, currentUserName, Email, password);
 
-        }
+        //}
 
         public async Task UpdateEvent(int id, string eventType, string eventName, string location, string occurrance, string startTime, string endTime, string notes, bool status)
         {
@@ -95,41 +98,51 @@ namespace SeniorProject1.DynamoDB
             await _putItem.AddNotification(id, senderID, receiverID, notificationMsg, status);         
         }
 
-
-        private UpdateItemRequest RequestBuilder(int id, double price, double currentPrice, string replyDateTime)
+        //id, userName, currentEmail, currentPassword
+        private UpdateItemRequest RequestBuilder(int id, string userName, string email, string currentEmail, string password, string currentPassword)
         {
             var request = new UpdateItemRequest
             {
                 Key = new Dictionary<string, AttributeValue>
                 {
-                    {"Id", new AttributeValue
+                    {"UserID", new AttributeValue
                     {
                         N = id.ToString()
                     } },
-                    {"ReplyDateTime", new AttributeValue
+                    {"UserName", new AttributeValue
                     {
-                        N = replyDateTime
+                        S = userName
                     } }
                 },
                 ExpressionAttributeNames = new Dictionary<string, string>
                 {
-                    {"#P", "Price" }
+                    {"#E", "Email" },
+                    {"#PW", "Password" }
                 },
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>
                 {
-                    {":newprice", new AttributeValue
+                    
+                    {":newPW", new AttributeValue
                     {
-                        N = price.ToString()
+                        S = password
                     } },
-                    {":currprice", new AttributeValue
+                    {":currPW", new AttributeValue
                     {
-                        N = currentPrice.ToString()
+                        S = currentPassword
+                    } },
+                    {":newEmail", new AttributeValue
+                    {
+                        S = email
+                    } },
+                    {":currEmail", new AttributeValue
+                    {
+                        S = currentEmail
                     } }
                 },
-                UpdateExpression = "SET #P = :newprice",
-                ConditionExpression = "#P = :currprice",
+                UpdateExpression = "SET #E = :newEmail, #PW = :newPW",
+                ConditionExpression = "#E = :currEmail AND #PW = :currPW",
 
-                TableName = _tableName,
+                TableName = "User",
                 ReturnValues = "ALL_NEW"
             };
 
