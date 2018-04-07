@@ -9,6 +9,9 @@
 *.user
 *.sln.docstates
 
+# AWS keys
+appsettings.json
+
 # Build results
 [Dd]ebug/
 [Rr]elease/
