@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +39,13 @@ namespace SeniorProject1
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:44356")
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
 
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
 
@@ -79,6 +86,8 @@ namespace SeniorProject1
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            app.UseCors("MyPolicy");
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SeniorProject1.DynamoDB;
+using System.Web.Http.Cors;
 
 namespace SeniorProject1.Controllers
 {
@@ -43,8 +44,15 @@ namespace SeniorProject1.Controllers
             return Ok();
         }
 
-        //get the item by the objects primary id
+        [Route("getuserbyname")]
+        public async Task<IActionResult> GetUserByName(string UserName)
+        {
+            var response = await _getItem.GetUserByName(UserName);
 
+            return Ok(response);
+        }
+
+        //get the item by the objects primary id
         [Route("getitems")]
         public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
         {

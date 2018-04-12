@@ -21,6 +21,22 @@ namespace SeniorProject1.DynamoDB
             _dynamoDbClient = dynamoDbClient;
         }
 
+        public async Task<User> GetUserByName(string UserName)
+        {
+            ScanRequest queryRequest; 
+
+            ScanResponse result;
+
+            _projectionExpression = "UserID, UserName, Email, Password";
+            _filterExpression = "UserName = :v_Name";
+
+            queryRequest = UserRequestBuilder(UserName);
+            result = await ScanAsync(queryRequest);
+
+            User user = result.Items.Select(MapUser).FirstOrDefault();
+            return user;
+        }
+
         /**
          * Get items based on UserID
          */
@@ -28,7 +44,7 @@ namespace SeniorProject1.DynamoDB
         {
             _tableName = tableName;
 
-            ScanRequest queryRequest; ;
+            ScanRequest queryRequest; 
 
             ScanResponse result;
 
@@ -141,7 +157,6 @@ namespace SeniorProject1.DynamoDB
                 Occurrance = result["Occurrance"].S,
                 EventStartTime = Convert.ToDateTime(result["EventStartTime"].S),
                 EventEndTime = Convert.ToDateTime(result["EventEndTime"].S),
-                //Status = result["EventStatus"].BOOL,
                 Notes = result["Notes"].S
             };
         }
@@ -171,6 +186,22 @@ namespace SeniorProject1.DynamoDB
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>
                 {
                     { ":v_Id", new AttributeValue{N = id.ToString()} }
+                },
+                FilterExpression = _filterExpression,
+                ProjectionExpression = _projectionExpression
+            };
+        }
+
+        private ScanRequest UserRequestBuilder(string UserName)
+        {
+            _tableName = "User";
+
+            return new ScanRequest
+            {
+                TableName = _tableName,
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                {
+                    { ":v_Name", new AttributeValue{N = UserName.ToString()} }
                 },
                 FilterExpression = _filterExpression,
                 ProjectionExpression = _projectionExpression

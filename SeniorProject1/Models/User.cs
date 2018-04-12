@@ -19,7 +19,7 @@ namespace SeniorProject1.Models
 
         public string Password { get; set; }
 
-
+        public List<int> FriendList { get; set; }
 
 
     }
