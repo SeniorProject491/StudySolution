@@ -8,6 +8,6 @@ namespace SeniorProject1.DynamoDB
 {
     public interface IDeleteItem
     {
-        Task<DeleteItemResponse> Delete(string tableName, int id);
+        Task<DeleteItemResponse> Delete(string tableName, string id);
     }
 }

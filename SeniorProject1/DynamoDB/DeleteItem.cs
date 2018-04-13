@@ -12,12 +12,10 @@ namespace SeniorProject1.DynamoDB
         private static string _tableName;
         private readonly IAmazonDynamoDB _dynamoDbClient;
         private IGetItem _getItem;
-        private static int _hashKey;
+        private static string _hashKey;
         private static string _hashKeyName;
         private static string _sortKey;
         private static string _sortKeyName;
-
-
 
 
         public DeleteItem(IAmazonDynamoDB dynamoDbClient, IGetItem getItem)
@@ -27,20 +25,20 @@ namespace SeniorProject1.DynamoDB
         }
 
         //delete item with primary key "id"
-        public async Task<DeleteItemResponse> Delete(String tableName, int id)
+        public async Task<DeleteItemResponse> Delete(String tableName, string id)
         {
             _tableName = tableName;
 
             //get the item by id
-            var deleteItem = await _getItem.GetItems(_tableName, id);
+            //var deleteItem = await _getItem.GetItems(_tableName, id);
             //var currentID = deleteItem.Items.Select(p => p.Id);
 
             if (_tableName == "User")
             {
-                _hashKeyName = "UserID";
+                var deleteItem = await _getItem.GetUserByName(id);
+
+                _hashKeyName = "UserName";
                 _hashKey = id;
-                _sortKeyName = "UserName";
-                _sortKey = deleteItem.User.Select(p => p.UserName).FirstOrDefault();
 
                 return await DeleteUserRequest();
             }
@@ -49,16 +47,24 @@ namespace SeniorProject1.DynamoDB
                 if (_tableName == "Event")
                 {
                     _hashKeyName = "EventID";
-                    _hashKey = deleteItem.Event.Select(p => p.EventID).FirstOrDefault();
-                    _sortKeyName = "UserID";
-                    _sortKey = deleteItem.Event.Select(p => p.UserID).FirstOrDefault().ToString();
+                    _hashKey = id;
+
+                    int eventID = Convert.ToInt32(id);
+                    var deleteItem = await _getItem.GetEventByID(eventID);
+
+                    _sortKeyName = "UserName";
+                    _sortKey = deleteItem.UserName;
                 }
                 else if (_tableName == "Notification") //notification
                 {
                     _hashKeyName = "NotificationID";
-                    _hashKey = deleteItem.Notification.Select(p => p.NotificationID).FirstOrDefault();
-                    _sortKeyName = "ReceiverID";
-                    _sortKey = deleteItem.Notification.Select(p => p.ReceiverID).FirstOrDefault().ToString();
+                    _hashKey = id; 
+
+                    int notificationID = Convert.ToInt32(id);
+                    var deleteItem = await _getItem.GetNotificationByID(notificationID);
+
+                    _sortKeyName = "ReceiverName";
+                    _sortKey = deleteItem.ReceiverName;
                 }
                 else
                 {
@@ -71,8 +77,8 @@ namespace SeniorProject1.DynamoDB
                     TableName = _tableName,
                     Key = new Dictionary<string, AttributeValue>
                 {
-                    {_hashKeyName, new AttributeValue{ N = _hashKey.ToString()} },
-                    {_sortKeyName, new AttributeValue { N = _sortKey.ToString()} }                }
+                    {_hashKeyName, new AttributeValue{ N = _hashKey} },
+                    {_sortKeyName, new AttributeValue { S = _sortKey} }                }
                 };
 
                 var response = await _dynamoDbClient.DeleteItemAsync(request);
@@ -89,8 +95,8 @@ namespace SeniorProject1.DynamoDB
                 TableName = _tableName,
                 Key = new Dictionary<string, AttributeValue>
                 {
-                    {_hashKeyName, new AttributeValue{ N = _hashKey.ToString()} },
-                    {_sortKeyName, new AttributeValue { S = _sortKey.ToString()} }                }
+                    {_hashKey, new AttributeValue { S = _hashKey} }
+                }
             };
             var response = await _dynamoDbClient.DeleteItemAsync(request);
 

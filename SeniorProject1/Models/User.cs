@@ -9,8 +9,8 @@ namespace SeniorProject1.Models
     [DynamoDBTable("User")]
     public class User
     {
-        [DynamoDBHashKey]
-        public int UserID { get; set; }
+        //[DynamoDBHashKey]
+        //public int UserID { get; set; }
         [DynamoDBRangeKey]
         public string UserName { get; set; }
 
@@ -19,7 +19,7 @@ namespace SeniorProject1.Models
 
         public string Password { get; set; }
 
-        public List<int> FriendList { get; set; }
+        public List<string> FriendList { get; set; }
 
 
     }

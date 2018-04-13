@@ -1,7 +1,7 @@
 ﻿[
   {
     "EventID": 0,
-    "UserID": 1,
+    "UserName": "MeghanSTW",
     "EventType": "Personal",
     "EventName": "Team Meeting",
     "EventLocation": "CSULB",
@@ -14,7 +14,7 @@
 
   {
     "EventID": 1,
-    "UserID": 1,
+    "UserName": "Jayyzz",
     "EventType": "Personal",
     "EventName": "Dentist appointment",
     "EventLocation": "Irvine",
@@ -27,7 +27,7 @@
 
   {
     "EventID": 2,
-    "UserID": 3,
+    "UserName": "KaicieMSR",
     "EventType": "Business",
     "EventName": "Interview",
     "EventLocation": "Oakland",

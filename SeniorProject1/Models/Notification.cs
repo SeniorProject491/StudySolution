@@ -13,10 +13,10 @@ namespace SeniorProject1.Models
         public int NotificationID { set; get; }
 
         [DynamoDBRangeKey]
-        public int ReceiverID { set; get; }
+        public string ReceiverName { set; get; }
 
         [DynamoDBProperty]
-        public int SenderID { set; get; }
+        public string SenderName { set; get; }
 
         [DynamoDBProperty]
         public string NotificationMsg { set; get; }
