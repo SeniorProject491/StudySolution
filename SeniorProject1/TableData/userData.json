@@ -1,20 +1,22 @@
 ﻿[
   {
-    "UserID": 0,
     "UserName": "Jayyzz",
     "Email": "jjj@gmail.com",
-    "Passwrod": ""
+    "Password": "false",
+    "FriendList": [ "KaicieMSR", "MeghanSTW" ]
   },
   {
-    "UserID": 1,
     "UserName": "KaicieMSR",
     "Email": "KMSR@gmail.com",
-    "Passwrod": ""
+    "Password": "sss..",
+    "FriendList": [ "MeghanSTW", "Jayyzz" ]
+
   },
   {
-    "UserID": 3,
     "UserName": "MeghanSTW",
     "Email": "MSTW@gmail.com",
-    "Passwrod": ""
+    "Password": "sdflkm",
+    "FriendList": [ "Jayyzz", "KaicieMSR" ]
+
   }
 ]

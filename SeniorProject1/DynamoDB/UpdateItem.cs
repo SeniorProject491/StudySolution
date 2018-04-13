@@ -24,28 +24,46 @@ namespace SeniorProject1.DynamoDB
             _deleteItem = deleteItem;
         }
 
-        public async Task<User> UpdateUser(int id, string userName, string email, string password)
+        public async Task<User> UpdateUser(string userName, string email, string password)
         {
-            var response = await _getItem.GetUserItems("User", id);
+            var response = await _getItem.GetUserByName(userName);
 
-            var currentEmail = response.User.Select(p => p.Email).FirstOrDefault();
+            var currentEmail = response.Email;
 
-            var currentPassword = response.User.Select(p => p.Password).FirstOrDefault();
+            var currentPassword = response.Password;
 
-            var currentUserName = response.User.Select(p => p.UserName).FirstOrDefault();
-
-            var request = RequestBuilder(id, userName, email, currentEmail, password, currentPassword);
+            var request = UserRequestBuilder(userName, email, currentEmail, password, currentPassword);
 
             var result = await UpdatItemAsync(request);
 
             return new User
             {
-                UserID = Convert.ToInt32(result.Attributes["UserID"].N),
                 UserName = result.Attributes["UserName"].S,
                 Email = result.Attributes["Email"].S,
-                Password = result.Attributes["Password"].S
+                Password = result.Attributes["Password"].S,
+                FriendList = result.Attributes["FriendList"].L.Select(sf => sf.S).ToList()
             };
         }
+
+        public async Task<User> UpdateFriendList(string userName, string friendName)
+        {
+            var response = await _getItem.GetUserByName(userName);
+
+            var friendList = response.FriendList;
+
+            var request = FriendsRequestBuilder(userName, friendList, friendName);
+
+            var result = await UpdatItemAsync(request);
+
+            return new User
+            {
+                UserName = result.Attributes["UserName"].S,
+                Email = result.Attributes["Email"].S,
+                Password = result.Attributes["Password"].S,
+                FriendList = result.Attributes["FriendList"].L.Select(sf => sf.S).ToList()
+            };
+        }
+
 
         //public async Task UpdateUser(int id, string userName , string Email, string password)
         //{
@@ -68,47 +86,82 @@ namespace SeniorProject1.DynamoDB
         {
             _tableName = "Event";
             //get the current object with the id
-            var currentEvent = await _getItem.GetItems(_tableName, id);
+            var currentEvent = await _getItem.GetEventByID(id);
 
             //get the sort keys of the previous one
-            var userID = currentEvent.Event.Select(p => p.UserID).FirstOrDefault();
+            var userName = currentEvent.UserName;
 
             //delete the current event with id
-            var response = await _deleteItem.Delete(_tableName, id);
+            var response = await _deleteItem.Delete(_tableName, id.ToString());
 
             //create a new object with the id and sort key
-            await _putItem.AddNewEvent(id, userID, eventType, eventName, location, occurrance, startTime, endTime, notes, status);      
+            await _putItem.AddNewEvent(id, userName, eventType, eventName, location, occurrance, startTime, endTime, notes, status);      
             
            
         }
 
-        public async Task UpdateNotification(int id, int senderID, string notificationMsg, bool status)
+        public async Task UpdateNotification(int id, string senderName, string notificationMsg, bool status)
         {
             _tableName = "Notification";
             //get the current object with the id
-            var currentNotification = await _getItem.GetItems(_tableName, id);
+            var currentNotification = await _getItem.GetNotificationByID(id);
 
             //get the sort keys of the previous one
-            var receiverID = currentNotification.Notification.Select(p => p.ReceiverID).FirstOrDefault();
+            var receiverName = currentNotification.ReceiverName;
 
             //delete the current event with id
-            var response = await _deleteItem.Delete(_tableName, id);
+            var response = await _deleteItem.Delete(_tableName, id.ToString());
 
             //create a new object with the id and sort key
-            await _putItem.AddNotification(id, senderID, receiverID, notificationMsg, status);         
+            await _putItem.AddNotification(id, senderName, receiverName, notificationMsg, status);         
         }
 
-        //id, userName, currentEmail, currentPassword
-        private UpdateItemRequest RequestBuilder(int id, string userName, string email, string currentEmail, string password, string currentPassword)
+        private UpdateItemRequest FriendsRequestBuilder(string userName, List<string> friendList, string friendName)
+        {
+            var request = new UpdateItemRequest
+            {
+                Key = new Dictionary<string, AttributeValue>()
+                {
+                    {"UserName", new AttributeValue
+                    {
+                        S = userName
+                    } }
+                },
+                ExpressionAttributeNames = new Dictionary<string, string>()
+                {
+                    {"#F", "FriendList" }
+                },
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>()
+                {
+
+                    {":updateList", new AttributeValue
+                        {
+                            L = new List<AttributeValue>
+                            {
+                                new AttributeValue { S = friendName }
+                            }
+                        }
+                        
+                    }
+                },
+                UpdateExpression = "SET #F = list_append(#F, :updateList)",
+                //ConditionExpression = "#E = :currEmail AND #PW = :currPW",
+
+                TableName = "User",
+                ReturnValues = "ALL_NEW"
+            };
+
+            return request;
+        }
+
+
+            //id, userName, currentEmail, currentPassword
+            private UpdateItemRequest UserRequestBuilder(string userName, string email, string currentEmail, string password, string currentPassword)
         {
             var request = new UpdateItemRequest
             {
                 Key = new Dictionary<string, AttributeValue>
                 {
-                    {"UserID", new AttributeValue
-                    {
-                        N = id.ToString()
-                    } },
                     {"UserName", new AttributeValue
                     {
                         S = userName

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SeniorProject1.DynamoDB;
+using System.Web.Http.Cors;
 
 namespace SeniorProject1.Controllers
 {
@@ -43,59 +44,91 @@ namespace SeniorProject1.Controllers
             return Ok();
         }
 
+        [Route("getusers")]
+        public async Task<IActionResult> GetUserList()
+        {
+            var response = await _getItem.GetUserList();
+
+            return Ok(response);
+        }
+
+
+        [Route("getuserbyname")]
+        public async Task<IActionResult> GetUserByName(string UserName)
+        {
+            var response = await _getItem.GetUserByName(UserName);
+
+            return Ok(response);
+        }
+
+        [Route("geteventbyname")]
+        public async Task<IActionResult> GetEventByName(string userName)
+        {
+            var response = await _getItem.GetEventByName(userName);
+
+            return Ok(response);
+        }
+
+        [Route("getnotificationbyname")]
+        public async Task<IActionResult> GetNotificationByName(string userName)
+        {
+            var response = await _getItem.GetNotificationByName(userName);
+
+            return Ok(response);
+        }
+
+        [Route("getnotificationbyid")]
+        public async Task<IActionResult> GetNotificationByID(int id)
+        {
+            var response = await _getItem.GetNotificationByID(id);
+
+            return Ok(response);
+        }
+
+        [Route("geteventbyid")]
+        public async Task<IActionResult> GetEventByID(int id)
+        {
+            var response = await _getItem.GetEventByID(id);
+
+            return Ok(response);
+        }
+
         //get the item by the objects primary id
+        //[Route("getitems")]
+        //public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
+        //{
+        //    var response = await _getItem.GetItems(tableName, id);
 
-        [Route("getitems")]
-        public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
-        {
-            var response = await _getItem.GetItems(tableName, id);
+        //    return Ok(response);
+        //}
 
-            return Ok(response);
-        }
+        ////get the item by the user's ID
+        //[Route("getuseritems")]
+        //public async Task<IActionResult> GetUserItems([FromQuery] string tableName, int? id)
+        //{
+        //    var response = await _getItem.GetEventByName(tableName, id);
 
-        //get the item by the user's ID
-        [Route("getuseritems")]
-        public async Task<IActionResult> GetUserItems([FromQuery] string tableName, int? id)
-        {
-            var response = await _getItem.GetUserItems(tableName, id);
+        //    return Ok(response);
+        //}
 
-            return Ok(response);
-        }
 
-        
         [HttpPut]
         [Route("updateuser")]
-        public async Task<IActionResult >UpdateUser([FromQuery] int id, string userName, string email, string password)
+        public async Task<IActionResult >UpdateUser([FromQuery] string userName, string email, string password)
         {
-            var response = await _updateItem.UpdateUser(id, userName, email, password);
+            var response = await _updateItem.UpdateUser(userName, email, password);
 
             return Ok(response);
         }
 
-
         [HttpPut]
-        [Route("putevent")]
-        public IActionResult PutEvent([FromQuery] int eventId, int userId, string eventType, string eventName, string location, string occurrance, string startTime,
-            string endTime, string notes, bool status)
+        [Route("updatefriendlist")]
+        public async Task<IActionResult> UpdateFriendList ([FromQuery] string userName, string friendName)
         {
-            _putItem.AddNewEvent(eventId, userId, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
-            return Ok();
-        }
 
-        [HttpPut]
-        [Route("putnotification")]
-        public IActionResult PutNotification([FromQuery] int id, int sender, int receiver, string message, bool status)
-        {
-            _putItem.AddNotification(id, sender, receiver, message, status);
-            return Ok();
-        }
+            var response = await _updateItem.UpdateFriendList(userName, friendName);
 
-        [HttpPut]
-        [Route("putuser")]
-        public IActionResult PutUser([FromQuery] int id, string username, string email, string password)
-        {
-            _putItem.AddNewUser(id, username, email, password);
-            return Ok();
+            return Ok(response);
         }
 
         [HttpPut]
@@ -110,9 +143,9 @@ namespace SeniorProject1.Controllers
 
         [HttpPut]
         [Route("updatenotification")]
-        public async Task<IActionResult> UpdateNotification([FromQuery] int id, int senderID, string notificationMsg, bool status)
+        public async Task<IActionResult> UpdateNotification([FromQuery] int id, string senderName, string notificationMsg, bool status)
         {
-            await _updateItem.UpdateNotification(id, senderID, notificationMsg, status);
+            await _updateItem.UpdateNotification(id, senderName, notificationMsg, status);
             return Ok();
         }
 
@@ -124,9 +157,34 @@ namespace SeniorProject1.Controllers
         //    return Ok();
         //}
 
+        [HttpPut]
+        [Route("putevent")]
+        public IActionResult PutEvent([FromQuery] int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime,
+           string endTime, string notes, bool status)
+        {
+            _putItem.AddNewEvent(eventId, userName, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("putnotification")]
+        public IActionResult PutNotification([FromQuery] int id, string sender, string receiver, string message, bool status)
+        {
+            _putItem.AddNotification(id, sender, receiver, message, status);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("putuser")]
+        public IActionResult PutUser([FromQuery] string username, string email, string password)
+        {
+            _putItem.AddNewUser(username, email, password);
+            return Ok();
+        }
+
         [HttpDelete]
         [Route("deleteitem")]
-        public async Task<IActionResult> DeleteItem([FromQuery]string tableName, int id)
+        public async Task<IActionResult> DeleteItem([FromQuery]string tableName, string id)
         {
             var response = await _deleteItem.Delete(tableName, id);
 

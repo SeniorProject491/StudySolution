@@ -16,92 +16,91 @@ namespace SeniorProject1.DynamoDB
         private static string _projectionExpression;
         private static string _filterExpression;
 
+        ScanRequest queryRequest;
+
+        ScanResponse result;
+
         public GetItem (IAmazonDynamoDB dynamoDbClient)
         {
             _dynamoDbClient = dynamoDbClient;
         }
 
+        public async Task<UserList> GetUserList()
+        {
+            _tableName = "User";
+            queryRequest = RequestBuilder(null);
+            result = await ScanAsync(queryRequest);
+            return new UserList
+            {
+                Users = result.Items.Select(MapUser).ToList()
+            };
+
+        }
+
+        public async Task<User> GetUserByName(string UserName)
+        {
+            _projectionExpression = "UserName, Email, Password, FriendList";
+            _filterExpression = "UserName = :v_Name";
+
+            queryRequest = UserRequestBuilder("User",   UserName);
+            result = await ScanAsync(queryRequest);
+
+            return result.Items.Select(MapUser).FirstOrDefault();
+        }
+
         /**
          * Get items based on UserID
          */
-        public async Task<DynamoTableItems> GetUserItems(string tableName, int? id)
+        public async Task<EventList> GetEventByName(string userName)
         {
-            _tableName = tableName;
-
-            ScanRequest queryRequest; ;
-
-            ScanResponse result;
-
-            if (_tableName == "User")
+            _tableName = "Event";
+            _projectionExpression = "EventID, UserName, EventName, EventType, Alert, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
+            _filterExpression = "UserName = :v_Name";
+            queryRequest = UserRequestBuilder(_tableName, userName);
+            result = await ScanAsync(queryRequest);
+            return new EventList
             {
-                _projectionExpression = "UserID, UserName, Email, Password";
-                _filterExpression = "UserID = :v_Id";
-
-                queryRequest = RequestBuilder(id);
-                result = await ScanAsync(queryRequest);
-                return new DynamoTableItems
-                {
-                    User = result.Items.Select(MapUser).ToList()
-                };
-            } else if (_tableName == "Event")
-            {                
-                _projectionExpression = "EventID, UserID, EventName, EventType, Alert, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
-                _filterExpression = "UserID = :v_Id";
-                queryRequest = RequestBuilder(id);
-                result = await ScanAsync(queryRequest);
-                return new DynamoTableItems
-                {
-                    Event = result.Items.Select(MapEvent).ToList()
-                };
-            } else
-            {
-                _projectionExpression = "NotificationID, ReceiverID, SenderID, NotificationMsg, NotificationStatus";
-                _filterExpression = "ReceiverID = :v_Id";
-                queryRequest = RequestBuilder(id);
-                result = await ScanAsync(queryRequest);
-                return new DynamoTableItems
-                {
-                    Notification = result.Items.Select(MapNotification).ToList()
-                };
-            }
+                Events = result.Items.Select(MapEvent).ToList()
+            };
         }
+
+        public async Task<NotificationList> GetNotificationByName(string userName)
+        {
+            _tableName = "Notification";
+            _projectionExpression = "NotificationID, ReceiverName, SenderName, NotificationMsg, NotificationStatus";
+            _filterExpression = "ReceiverName = :v_Name";
+            queryRequest = UserRequestBuilder(_tableName, userName);
+            result = await ScanAsync(queryRequest);
+            return new NotificationList
+            {
+                Notifications = result.Items.Select(MapNotification).ToList()
+            };
+        }
+
 
         /**
          *  Get item based on the item's primary key
          */
-        public async Task<DynamoTableItems> GetItems(string tableName, int id)
+        public async Task<Event> GetEventByID(int id)
         {
-            _tableName = tableName;
-
-            ScanRequest queryRequest; ;
-
-            ScanResponse result;
-
-           if (_tableName == "Event")
-            {
-                _projectionExpression = "EventID, UserID, EventName, EventType, Alerts, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
-                _filterExpression = "EventID = :v_Id";
-                queryRequest = RequestBuilder(id);
-                result = await ScanAsync(queryRequest);
-                return new DynamoTableItems
-                {
-                    Event = result.Items.Select(MapEvent).ToList()
-                };
-            }
-            else if (_tableName == "Notification")
-            {
-                _projectionExpression = "NotificationID, ReceiverID, SenderID, NotificationMsg, NotificationStatus";
-                _filterExpression = "NotificationID = :v_Id";
-                queryRequest = RequestBuilder(id);
-                result = await ScanAsync(queryRequest);
-                return new DynamoTableItems
-                {
-                    Notification = result.Items.Select(MapNotification).ToList()
-                };
-            }
-
-            return null;
+            _tableName = "Event";
+            _projectionExpression = "EventID, UserName, EventName, EventType, Alerts, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
+            _filterExpression = "EventID = :v_Id";
+            queryRequest = RequestBuilder(id);
+            result = await ScanAsync(queryRequest);
+            return result.Items.Select(MapEvent).FirstOrDefault();
         }
+
+        public async Task<Notification> GetNotificationByID(int id)
+        { 
+            _tableName = "Notification";
+            _projectionExpression = "NotificationID, ReceiverName, SenderName, NotificationMsg, NotificationStatus";
+            _filterExpression = "NotificationID = :v_Id";
+            queryRequest = RequestBuilder(id);
+            result = await ScanAsync(queryRequest);
+            return result.Items.Select(MapNotification).FirstOrDefault();
+        }
+        
 
         // map the attributes of notification
         private Notification MapNotification(Dictionary<string, AttributeValue> result)
@@ -109,8 +108,8 @@ namespace SeniorProject1.DynamoDB
             return new Notification
             {
                 NotificationID = Convert.ToInt32(result["NotificationID"].N),
-                ReceiverID = Convert.ToInt32(result["ReceiverID"].N),
-                SenderID = Convert.ToInt32(result["SenderID"].N),
+                ReceiverName = result["ReceiverName"].S,
+                SenderName = result["SenderName"].S,
                 NotificationMsg = result["NotificationMsg"].S,
                 Status = Convert.ToBoolean(result["NotificationStatus"].BOOL)
             };
@@ -121,10 +120,10 @@ namespace SeniorProject1.DynamoDB
         {
             return new User
             {
-                UserID = Convert.ToInt32(result["UserID"].N),
                 UserName = result["UserName"].S,
                 Email = result["Email"].S,
-                Password = result["Password"].S
+                Password = result["Password"].S,
+                FriendList = result["FriendList"].L.Select(sf => sf.S).ToList()
             };
         }
 
@@ -134,14 +133,13 @@ namespace SeniorProject1.DynamoDB
             return new Event
             {
                 EventID = Convert.ToInt32(result["EventID"].N),
-                UserID = Convert.ToInt32(result["UserID"].N),
+                UserName = result["UserName"].S,
                 EventType = result["EventType"].S,
                 EventName = result["EventName"].S,
                 Location = result["EventLocation"].S,
                 Occurrance = result["Occurrance"].S,
                 EventStartTime = Convert.ToDateTime(result["EventStartTime"].S),
                 EventEndTime = Convert.ToDateTime(result["EventEndTime"].S),
-                //Status = result["EventStatus"].BOOL,
                 Notes = result["Notes"].S
             };
         }
@@ -171,6 +169,22 @@ namespace SeniorProject1.DynamoDB
                 ExpressionAttributeValues = new Dictionary<string, AttributeValue>
                 {
                     { ":v_Id", new AttributeValue{N = id.ToString()} }
+                },
+                FilterExpression = _filterExpression,
+                ProjectionExpression = _projectionExpression
+            };
+        }
+
+        private ScanRequest UserRequestBuilder(string tableName,string UserName)
+        {
+            _tableName = tableName;
+
+            return new ScanRequest
+            {
+                TableName = _tableName,
+                ExpressionAttributeValues = new Dictionary<string, AttributeValue>
+                {
+                    { ":v_Name", new AttributeValue{S = UserName} }
                 },
                 FilterExpression = _filterExpression,
                 ProjectionExpression = _projectionExpression

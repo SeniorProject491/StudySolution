@@ -7,11 +7,11 @@ namespace SeniorProject1.DynamoDB
 {
     public interface IPutItem
     {
-        Task AddNewEvent(int id, int userId, string eventType, string eventName, string location, string occurance, string startTime,
+        Task AddNewEvent(int id, string userName, string eventType, string eventName, string location, string occurance, string startTime,
             string endTime, string notes, bool status);
 
-        Task AddNotification(int id, int sender, int receiver, string message, bool status);
+        Task AddNotification(int id, string sender, string receiver, string message, bool status);
 
-        Task AddNewUser(int id, string username, string email, string password);
+        Task AddNewUser(string username, string email, string password);
     }
 }         

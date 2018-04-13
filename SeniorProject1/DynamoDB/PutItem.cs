@@ -17,20 +17,33 @@ namespace SeniorProject1.DynamoDB
             _dynamoDbClient = dynamoDbClient;
         }
 
-        public async Task AddNewEvent(int id, int userId, string eventType, string eventName, string location, string occurance, string startTime,
-            string endTime, string notes, bool status)
+        public async Task AddNewUser(string username, string email, string password)
         {
-            var queryRequest = RequestBuilder(id, userId, eventType, eventName, location, occurance, startTime, endTime, notes, status);
+            var queryRequest = UserRequestBuilder(username, email, password);
             await PutItemAsync(queryRequest);
         }
 
-        private PutItemRequest RequestBuilder(int id, int userId, string eventType, string eventName, string location, string occurrance, string startTime,
+        public async Task AddNewEvent(int id, string userName, string eventType, string eventName, string location, string occurance, string startTime,
+            string endTime, string notes, bool status)
+        {
+            var queryRequest = EventRequestBuilder(id, userName, eventType, eventName, location, occurance, startTime, endTime, notes, status);
+            await PutItemAsync(queryRequest);
+        }
+
+        public async Task AddNotification(int id, string sender, string receiver, string message, bool status)
+        {
+            var queryRequest = NotificationRequestBuilder(id, sender, receiver, message, status);
+            //Console.WriteLine(id.ToString(), " ", sender, " ", receiver, " ", message, " ", status);
+            await PutItemAsync(queryRequest);
+        }
+
+        private PutItemRequest EventRequestBuilder(int id, string userName, string eventType, string eventName, string location, string occurrance, string startTime,
             string endTime, string notes, bool status)
         {
             var userEvent = new Dictionary<string, AttributeValue>()
             {
                 {"EventID", new AttributeValue {N = id.ToString()}},
-                {"UserID", new AttributeValue {N = userId.ToString()}},
+                {"UserName", new AttributeValue {S = userName.ToString()}},
                 {"EventType", new AttributeValue {S = eventType}},
                 {"EventName", new AttributeValue {S = eventName}},
                 {"EventLocation", new AttributeValue {S = location}},
@@ -49,23 +62,15 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
-
-        public async Task AddNotification(int id, int sender, int receiver, string message, bool status)
-        {
-            var queryRequest = RequestBuilder(id, sender, receiver, message, status);
-
-            await PutItemAsync(queryRequest);
-        }
-
-        private PutItemRequest RequestBuilder(int id, int sender, int receiver, string message, bool status)
+        private PutItemRequest NotificationRequestBuilder(int id, string sender, string receiver, string message, bool status)
         {
             var userNotification = new Dictionary<string, AttributeValue>()
             {
                 {"NotificationID", new AttributeValue {N = id.ToString()}},
-                {"ReceiverID", new AttributeValue {N = receiver.ToString()}},
+                {"ReceiverName", new AttributeValue {S = receiver}},
                 {"NotificationMsg", new AttributeValue {S = message}},
                 {"NotificationStatus", new AttributeValue {BOOL = status}},
-                {"SenderID", new AttributeValue {N = sender.ToString()}}
+                {"SenderName", new AttributeValue {S = sender}}
             };
 
             return new PutItemRequest
@@ -75,20 +80,24 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
-        public async Task AddNewUser(int id, string username, string email, string password)
-        {
-            var queryRequest = RequestBuilder(id, username, email, password);
-            await PutItemAsync(queryRequest);
-        }
+      
 
-        private PutItemRequest RequestBuilder(int id, string username, string email, string password)
+        private PutItemRequest UserRequestBuilder(string username, string email, string password)
         {
             var newUser = new Dictionary<string, AttributeValue>()
             {
-                {"UserID", new AttributeValue {N = id.ToString()}},
                 {"UserName", new AttributeValue {S = username}},
                 {"Email", new AttributeValue {S = email}},
-                {"Password", new AttributeValue{S = password} }
+                {"Password", new AttributeValue{S = password} },
+                {"FriendList", new AttributeValue
+                    {
+                        L = new List<AttributeValue>
+                        {
+                            new AttributeValue { S = "Empty" }
+                        }
+                    }
+                }
+
             };
 
             return new PutItemRequest

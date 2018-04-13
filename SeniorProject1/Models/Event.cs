@@ -14,7 +14,7 @@ namespace SeniorProject1.Models
         public int EventID { set; get; }
 
         [DynamoDBRangeKey]
-        public int UserID { set; get; }
+        public string UserName { set; get; }
 
         [DynamoDBProperty]
         public string EventType { set; get; }
@@ -35,7 +35,6 @@ namespace SeniorProject1.Models
         public bool Status { set; get; }
 
         public string Notes { set; get; }
-
 
     }
 }

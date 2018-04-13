@@ -44,11 +44,6 @@ namespace SeniorProject1.DynamoDB
                 {
                     new AttributeDefinition
                     {
-                        AttributeName = "UserID",
-                        AttributeType = "N"
-                    },
-                    new AttributeDefinition
-                    {
                         AttributeName = "UserName",
                         AttributeType = "S"
                     }
@@ -57,13 +52,8 @@ namespace SeniorProject1.DynamoDB
                 {
                     new KeySchemaElement
                     {
-                        AttributeName = "UserID",
-                        KeyType = "HASH" // Partition Key
-                    },
-                    new KeySchemaElement
-                    {
                         AttributeName = "UserName",
-                        KeyType = "Range" // Sort Key
+                        KeyType = "HASH" // Partition Key
                     }
                 },
                 ProvisionedThroughput = new ProvisionedThroughput
@@ -95,8 +85,8 @@ namespace SeniorProject1.DynamoDB
                     },
                     new AttributeDefinition
                     {
-                        AttributeName = "UserID",
-                        AttributeType = "N"
+                        AttributeName = "UserName",
+                        AttributeType = "S"
                     }
                 },
                 KeySchema = new List<KeySchemaElement>
@@ -108,7 +98,7 @@ namespace SeniorProject1.DynamoDB
                     },
                     new KeySchemaElement
                     {
-                        AttributeName = "UserID",
+                        AttributeName = "UserName",
                         KeyType = "Range" // Sort Key
                     }
                 },
@@ -141,8 +131,8 @@ namespace SeniorProject1.DynamoDB
                     },
                     new AttributeDefinition
                     {
-                        AttributeName = "ReceiverID",
-                        AttributeType = "N"
+                        AttributeName = "ReceiverName",
+                        AttributeType = "S"
                     }
                 },
                 KeySchema = new List<KeySchemaElement>
@@ -154,7 +144,7 @@ namespace SeniorProject1.DynamoDB
                     },
                     new KeySchemaElement
                     {
-                        AttributeName = "ReceiverID",
+                        AttributeName = "ReceiverName",
                         KeyType = "Range" // Sort Key
                     }
                 },
