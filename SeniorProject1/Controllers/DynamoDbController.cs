@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SeniorProject1.DynamoDB;
 using System.Web.Http.Cors;
+using SeniorProject1.Models;
 
 namespace SeniorProject1.Controllers
 {
@@ -113,10 +114,10 @@ namespace SeniorProject1.Controllers
 
 
         [HttpPut]
-        [Route("updateuser/{userName}/{email}/{password}")]
-        public async Task<IActionResult >UpdateUser(string userName, string email, string password)
+        [Route("updateuser")]
+        public async Task<IActionResult >UpdateUser([FromBody] User user)
         {
-            var response = await _updateItem.UpdateUser(userName, email, password);
+            var response = await _updateItem.UpdateUser(user.UserName, user.Email, user.Password);
 
             return Ok(response);
         }
@@ -132,20 +133,20 @@ namespace SeniorProject1.Controllers
         }
 
         [HttpPut]
-        [Route("updateevent/{id}/{eventType}/{eventName}/{location}/{occurrance}")]
-        public async Task<IActionResult> UpdateEvent( int id, string eventType, string eventName, string location, string occurrance, 
-            string startTime, string endTime,string notes, bool status)
+        [Route("updateevent")]
+        ///{id}/{eventType}/{eventName}/{location}/{occurrance}
+        public async Task<IActionResult> UpdateEvent([FromBody] Event evnt)
         {
-            await _updateItem.UpdateEvent(id, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
+            await _updateItem.UpdateEvent(evnt.EventID, evnt.EventType, evnt.EventName, evnt.Location, evnt.Occurrance, evnt.EventStartTime.ToString(), evnt.EventEndTime.ToString(), evnt.Notes, evnt.Status);
             return Ok();
         }
 
 
         [HttpPut]
-        [Route("updatenotification/{id}/{senderName}/{notificationMsg}/{status}")]
-        public async Task<IActionResult> UpdateNotification(int id, string senderName, string notificationMsg, bool status)
+        [Route("updatenotification")]
+        public async Task<IActionResult> UpdateNotification([FromBody] Notification notification)//int id, string senderName, string notificationMsg, bool status)
         {
-            await _updateItem.UpdateNotification(id, senderName, notificationMsg, status);
+            await _updateItem.UpdateNotification(notification.NotificationID, notification.SenderName, notification.NotificationMsg, notification.Status);
             return Ok();
         }
 
@@ -157,28 +158,29 @@ namespace SeniorProject1.Controllers
         //    return Ok();
         //}
 
-        [HttpPut]
-        [Route("putevent/{eventId}/{userName}/{eventType}/{eventName}/{location}/{occurrance}/{startTime}/{endTime}/{notes}/{status}")]
-        public IActionResult PutEvent( int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime,
-           string endTime, string notes, bool status)
+        [HttpPost]
+        [Route("putevent")]
+        //[Route("putevent/{eventId}/{userName}/{eventType}/{eventName}/{location}/{occurrance}/{startTime}/{endTime}/{notes}/{status}")]
+        //int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime, string endTime, string notes, bool status
+        public IActionResult PutEvent([FromBody] Event evnt)
         {
-            _putItem.AddNewEvent(eventId, userName, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
+            _putItem.AddNewEvent(evnt.EventID, evnt.UserName, evnt.EventType, evnt.EventName, evnt.Location, evnt.Occurrance, evnt.EventStartTime.ToString(), evnt.EventEndTime.ToString(), evnt.Notes, evnt.Status);
             return Ok();
         }
 
         [HttpPost]
         [Route("putnotification")]
-        public IActionResult PutNotification([FromBody] int id, string sender, string receiver, string message, bool status)
+        public IActionResult PutNotification([FromBody] Notification notification)
         {
-            _putItem.AddNotification(id, sender, receiver, message, status);
+            _putItem.AddNotification(notification.NotificationID, notification.SenderName, notification.ReceiverName, notification.NotificationMsg, notification.Status);
             return Ok();
         }
 
-        [HttpPut]
-        [Route("putuser/{username}/{email}/{password}")]
-        public IActionResult PutUser([FromQuery] string username, string email, string password)
+        [HttpPost]
+        [Route("putuser")]
+        public IActionResult PutUser([FromBody] User user)
         {
-            _putItem.AddNewUser(username, email, password);
+            _putItem.AddNewUser(user.UserName, user.Email, user.Password);
             return Ok();
         }
 
