@@ -63,7 +63,7 @@ namespace SeniorProject1.DynamoDB
                     int notificationID = Convert.ToInt32(id);
                     var deleteItem = await _getItem.GetNotificationByID(notificationID);
 
-                    _sortKeyName = "ReceiverName";
+                    _sortKeyName = "SenderName";
                     _sortKey = deleteItem.ReceiverName;
                 }
                 else

@@ -131,7 +131,7 @@ namespace SeniorProject1.DynamoDB
                     },
                     new AttributeDefinition
                     {
-                        AttributeName = "ReceiverName",
+                        AttributeName = "SenderName",
                         AttributeType = "S"
                     }
                 },
@@ -144,7 +144,7 @@ namespace SeniorProject1.DynamoDB
                     },
                     new KeySchemaElement
                     {
-                        AttributeName = "ReceiverName",
+                        AttributeName = "SenderName",
                         KeyType = "Range" // Sort Key
                     }
                 },

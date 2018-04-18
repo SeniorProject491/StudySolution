@@ -53,7 +53,7 @@ namespace SeniorProject1.Controllers
         }
 
 
-        [Route("getuserbyname")]
+        [Route("getuserbyname/{UserName}")]
         public async Task<IActionResult> GetUserByName(string UserName)
         {
             var response = await _getItem.GetUserByName(UserName);
@@ -61,23 +61,23 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
-        [Route("geteventbyname")]
-        public async Task<IActionResult> GetEventByName(string userName)
+        [Route("geteventbyname/{UserName}")]
+        public async Task<IActionResult> GetEventByName(string UserName)
         {
-            var response = await _getItem.GetEventByName(userName);
+            var response = await _getItem.GetEventByName(UserName);
 
             return Ok(response);
         }
 
-        [Route("getnotificationbyname")]
-        public async Task<IActionResult> GetNotificationByName(string userName)
+        [Route("getnotificationbyname/{UserName}")]
+        public async Task<IActionResult> GetNotificationByName(string UserName)
         {
-            var response = await _getItem.GetNotificationByName(userName);
+            var response = await _getItem.GetNotificationByName(UserName);
 
             return Ok(response);
         }
 
-        [Route("getnotificationbyid")]
+        [Route("getnotificationbyid/{id}")]
         public async Task<IActionResult> GetNotificationByID(int id)
         {
             var response = await _getItem.GetNotificationByID(id);
@@ -85,7 +85,7 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
-        [Route("geteventbyid")]
+        [Route("geteventbyid/{id}")]
         public async Task<IActionResult> GetEventByID(int id)
         {
             var response = await _getItem.GetEventByID(id);
@@ -113,8 +113,8 @@ namespace SeniorProject1.Controllers
 
 
         [HttpPut]
-        [Route("updateuser")]
-        public async Task<IActionResult >UpdateUser([FromQuery] string userName, string email, string password)
+        [Route("updateuser/{userName}/{email}/{password}")]
+        public async Task<IActionResult >UpdateUser(string userName, string email, string password)
         {
             var response = await _updateItem.UpdateUser(userName, email, password);
 
@@ -122,8 +122,8 @@ namespace SeniorProject1.Controllers
         }
 
         [HttpPut]
-        [Route("updatefriendlist")]
-        public async Task<IActionResult> UpdateFriendList ([FromQuery] string userName, string friendName)
+        [Route("updatefriendlist/{userName}/{friendName}")]
+        public async Task<IActionResult> UpdateFriendList (string userName, string friendName)
         {
 
             var response = await _updateItem.UpdateFriendList(userName, friendName);
@@ -132,8 +132,8 @@ namespace SeniorProject1.Controllers
         }
 
         [HttpPut]
-        [Route("updateevent")]
-        public async Task<IActionResult> UpdateEvent([FromQuery] int id, string eventType, string eventName, string location, string occurrance, 
+        [Route("updateevent/{id}/{eventType}/{eventName}/{location}/{occurrance}")]
+        public async Task<IActionResult> UpdateEvent( int id, string eventType, string eventName, string location, string occurrance, 
             string startTime, string endTime,string notes, bool status)
         {
             await _updateItem.UpdateEvent(id, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
@@ -142,8 +142,8 @@ namespace SeniorProject1.Controllers
 
 
         [HttpPut]
-        [Route("updatenotification")]
-        public async Task<IActionResult> UpdateNotification([FromQuery] int id, string senderName, string notificationMsg, bool status)
+        [Route("updatenotification/{id}/{senderName}/{notificationMsg}/{status}")]
+        public async Task<IActionResult> UpdateNotification(int id, string senderName, string notificationMsg, bool status)
         {
             await _updateItem.UpdateNotification(id, senderName, notificationMsg, status);
             return Ok();
@@ -158,32 +158,40 @@ namespace SeniorProject1.Controllers
         //}
 
         [HttpPut]
-        [Route("putevent")]
-        public IActionResult PutEvent([FromQuery] int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime,
+        [Route("putevent/{eventId}/{userName}/{eventType}/{eventName}/{location}/{occurrance}/{startTime}/{endTime}/{notes}/{status}")]
+        public IActionResult PutEvent( int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime,
            string endTime, string notes, bool status)
         {
             _putItem.AddNewEvent(eventId, userName, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("putnotification")]
-        public IActionResult PutNotification([FromQuery] int id, string sender, string receiver, string message, bool status)
+        public IActionResult PutNotification([FromBody] int id, string sender, string receiver, string message, bool status)
         {
             _putItem.AddNotification(id, sender, receiver, message, status);
             return Ok();
         }
 
         [HttpPut]
-        [Route("putuser")]
+        [Route("putuser/{username}/{email}/{password}")]
         public IActionResult PutUser([FromQuery] string username, string email, string password)
         {
             _putItem.AddNewUser(username, email, password);
             return Ok();
         }
 
+        //[HttpPut]
+        //[Route("postuser")]
+        //public IActionResult PostUser([FromBody] string username, string email, string password)
+        //{
+        //    _putItem.AddNewUser(username, email, password);
+        //    return Ok();
+        //}
+
         [HttpDelete]
-        [Route("deleteitem")]
+        [Route("deleteitem/{tableName}/{id}")]
         public async Task<IActionResult> DeleteItem([FromQuery]string tableName, string id)
         {
             var response = await _deleteItem.Delete(tableName, id);

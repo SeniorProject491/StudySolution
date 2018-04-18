@@ -38,14 +38,14 @@ namespace SeniorProject1
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
-            services.AddMvc();
-
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:44356")
+                builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+
+            services.AddMvc();
 
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
 
@@ -80,6 +80,8 @@ namespace SeniorProject1
 
             app.UseAuthentication();
 
+            app.UseCors("MyPolicy");
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -87,7 +89,7 @@ namespace SeniorProject1
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.UseCors("MyPolicy");
+          
         }
     }
 }
