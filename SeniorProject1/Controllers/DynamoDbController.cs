@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SeniorProject1.DynamoDB;
 using System.Web.Http.Cors;
+using SeniorProject1.Models;
 
 namespace SeniorProject1.Controllers
 {
@@ -53,7 +54,7 @@ namespace SeniorProject1.Controllers
         }
 
 
-        [Route("getuserbyname")]
+        [Route("getuserbyname/{UserName}")]
         public async Task<IActionResult> GetUserByName(string UserName)
         {
             var response = await _getItem.GetUserByName(UserName);
@@ -61,23 +62,23 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
-        [Route("geteventbyname")]
-        public async Task<IActionResult> GetEventByName(string userName)
+        [Route("geteventbyname/{UserName}")]
+        public async Task<IActionResult> GetEventByName(string UserName)
         {
-            var response = await _getItem.GetEventByName(userName);
+            var response = await _getItem.GetEventByName(UserName);
 
             return Ok(response);
         }
 
-        [Route("getnotificationbyname")]
-        public async Task<IActionResult> GetNotificationByName(string userName)
+        [Route("getnotificationbyname/{UserName}")]
+        public async Task<IActionResult> GetNotificationByName(string UserName)
         {
-            var response = await _getItem.GetNotificationByName(userName);
+            var response = await _getItem.GetNotificationByName(UserName);
 
             return Ok(response);
         }
 
-        [Route("getnotificationbyid")]
+        [Route("getnotificationbyid/{id}")]
         public async Task<IActionResult> GetNotificationByID(int id)
         {
             var response = await _getItem.GetNotificationByID(id);
@@ -85,7 +86,7 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
-        [Route("geteventbyid")]
+        [Route("geteventbyid/{id}")]
         public async Task<IActionResult> GetEventByID(int id)
         {
             var response = await _getItem.GetEventByID(id);
@@ -114,16 +115,16 @@ namespace SeniorProject1.Controllers
 
         [HttpPut]
         [Route("updateuser")]
-        public async Task<IActionResult >UpdateUser([FromQuery] string userName, string email, string password)
+        public async Task<IActionResult >UpdateUser([FromBody] User user)
         {
-            var response = await _updateItem.UpdateUser(userName, email, password);
+            var response = await _updateItem.UpdateUser(user.UserName, user.Email, user.Password);
 
             return Ok(response);
         }
 
         [HttpPut]
-        [Route("updatefriendlist")]
-        public async Task<IActionResult> UpdateFriendList ([FromQuery] string userName, string friendName)
+        [Route("updatefriendlist/{userName}/{friendName}")]
+        public async Task<IActionResult> UpdateFriendList (string userName, string friendName)
         {
 
             var response = await _updateItem.UpdateFriendList(userName, friendName);
@@ -133,19 +134,19 @@ namespace SeniorProject1.Controllers
 
         [HttpPut]
         [Route("updateevent")]
-        public async Task<IActionResult> UpdateEvent([FromQuery] int id, string eventType, string eventName, string location, string occurrance, 
-            string startTime, string endTime,string notes, bool status)
+        ///{id}/{eventType}/{eventName}/{location}/{occurrance}
+        public async Task<IActionResult> UpdateEvent([FromBody] Event evnt)
         {
-            await _updateItem.UpdateEvent(id, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
+            await _updateItem.UpdateEvent(evnt.EventID, evnt.EventType, evnt.EventName, evnt.Location, evnt.Occurrance, evnt.EventStartTime.ToString(), evnt.EventEndTime.ToString(), evnt.Notes, evnt.Status);
             return Ok();
         }
 
 
         [HttpPut]
         [Route("updatenotification")]
-        public async Task<IActionResult> UpdateNotification([FromQuery] int id, string senderName, string notificationMsg, bool status)
+        public async Task<IActionResult> UpdateNotification([FromBody] Notification notification)//int id, string senderName, string notificationMsg, bool status)
         {
-            await _updateItem.UpdateNotification(id, senderName, notificationMsg, status);
+            await _updateItem.UpdateNotification(notification.NotificationID, notification.SenderName, notification.NotificationMsg, notification.Status);
             return Ok();
         }
 
@@ -157,33 +158,42 @@ namespace SeniorProject1.Controllers
         //    return Ok();
         //}
 
-        [HttpPut]
+        [HttpPost]
         [Route("putevent")]
-        public IActionResult PutEvent([FromQuery] int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime,
-           string endTime, string notes, bool status)
+        //[Route("putevent/{eventId}/{userName}/{eventType}/{eventName}/{location}/{occurrance}/{startTime}/{endTime}/{notes}/{status}")]
+        //int eventId, string userName, string eventType, string eventName, string location, string occurrance, string startTime, string endTime, string notes, bool status
+        public IActionResult PutEvent([FromBody] Event evnt)
         {
-            _putItem.AddNewEvent(eventId, userName, eventType, eventName, location, occurrance, startTime, endTime, notes, status);
+            _putItem.AddNewEvent(evnt.EventID, evnt.UserName, evnt.EventType, evnt.EventName, evnt.Location, evnt.Occurrance, evnt.EventStartTime.ToString(), evnt.EventEndTime.ToString(), evnt.Notes, evnt.Status);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("putnotification")]
-        public IActionResult PutNotification([FromQuery] int id, string sender, string receiver, string message, bool status)
+        public IActionResult PutNotification([FromBody] Notification notification)
         {
-            _putItem.AddNotification(id, sender, receiver, message, status);
+            _putItem.AddNotification(notification.NotificationID, notification.SenderName, notification.ReceiverName, notification.NotificationMsg, notification.Status);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPost]
         [Route("putuser")]
-        public IActionResult PutUser([FromQuery] string username, string email, string password)
+        public IActionResult PutUser([FromBody] User user)
         {
-            _putItem.AddNewUser(username, email, password);
+            _putItem.AddNewUser(user.UserName, user.Email, user.Password);
             return Ok();
         }
+
+        //[HttpPut]
+        //[Route("postuser")]
+        //public IActionResult PostUser([FromBody] string username, string email, string password)
+        //{
+        //    _putItem.AddNewUser(username, email, password);
+        //    return Ok();
+        //}
 
         [HttpDelete]
-        [Route("deleteitem")]
+        [Route("deleteitem/{tableName}/{id}")]
         public async Task<IActionResult> DeleteItem([FromQuery]string tableName, string id)
         {
             var response = await _deleteItem.Delete(tableName, id);
