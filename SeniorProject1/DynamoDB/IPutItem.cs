@@ -10,7 +10,7 @@ namespace SeniorProject1.DynamoDB
         Task AddNewEvent(int id, string userName, string eventType, string eventName, string location, string occurance, string startTime,
             string endTime, string notes, bool status);
 
-        Task AddNotification(int id, string sender, string receiver, string message, bool status);
+        Task AddNewNotification(int id, string sender, string receiver, string message, bool status);
 
         Task AddNewUser(string username, string email, string password);
     }

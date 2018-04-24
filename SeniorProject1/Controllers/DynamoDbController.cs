@@ -172,7 +172,7 @@ namespace SeniorProject1.Controllers
         [Route("putnotification")]
         public IActionResult PutNotification([FromBody] Notification notification)
         {
-            _putItem.AddNotification(notification.NotificationID, notification.SenderName, notification.ReceiverName, notification.NotificationMsg, notification.Status);
+            _putItem.AddNewNotification(notification.NotificationID, notification.SenderName, notification.ReceiverName, notification.NotificationMsg, notification.Status);
             return Ok();
         }
 

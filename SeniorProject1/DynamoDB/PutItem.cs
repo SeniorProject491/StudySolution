@@ -30,7 +30,7 @@ namespace SeniorProject1.DynamoDB
             await PutItemAsync(queryRequest);
         }
 
-        public async Task AddNotification(int id, string sender, string receiver, string message, bool status)
+        public async Task AddNewNotification(int id, string sender, string receiver, string message, bool status)
         {
             var queryRequest = NotificationRequestBuilder(id, sender, receiver, message, status);
             //Console.WriteLine(id.ToString(), " ", sender, " ", receiver, " ", message, " ", status);
