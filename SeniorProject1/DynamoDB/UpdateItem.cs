@@ -113,7 +113,7 @@ namespace SeniorProject1.DynamoDB
             var response = await _deleteItem.Delete(_tableName, id.ToString());
 
             //create a new object with the id and sort key
-            await _putItem.AddNotification(id, senderName, receiverName, notificationMsg, status);         
+            await _putItem.AddNewNotification(id, senderName, receiverName, notificationMsg, status);         
         }
 
         private UpdateItemRequest FriendsRequestBuilder(string userName, List<string> friendList, string friendName)
