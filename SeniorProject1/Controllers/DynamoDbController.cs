@@ -94,14 +94,15 @@ namespace SeniorProject1.Controllers
             return Ok(response);
         }
 
-        //get the item by the objects primary id
-        //[Route("getitems")]
-        //public async Task<IActionResult> GetItems([FromQuery] string tableName, int id)
-        //{
-        //    var response = await _getItem.GetItems(tableName, id);
 
-        //    return Ok(response);
-        //}
+        //get the item by the objects primary id
+        [Route("getallevents")]
+        public async Task<IActionResult> GetAllEvents()
+        {
+            var response = await _getItem.GetAllEvents();
+
+            return Ok(response);
+        }
 
         ////get the item by the user's ID
         //[Route("getuseritems")]

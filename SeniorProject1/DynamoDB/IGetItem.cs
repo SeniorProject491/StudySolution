@@ -15,6 +15,6 @@ namespace SeniorProject1.DynamoDB
         Task<NotificationList> GetNotificationByName(string userName);
         Task<Notification> GetNotificationByID(int id);
         Task<UserList> GetUserList();
-
+        Task<EventList> GetAllEvents();
     }
 }

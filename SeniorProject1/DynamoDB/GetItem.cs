@@ -64,6 +64,19 @@ namespace SeniorProject1.DynamoDB
             };
         }
 
+        public async Task<EventList> GetAllEvents()
+        {
+            _tableName = "Event";
+            _projectionExpression = "EventID, UserName, EventName, EventType, Alert, EventStartTime, EventEndTime, EventLocation, Notes, Occurrance, EventStatus";
+            _filterExpression = "UserName = :v_Name";
+            queryRequest = RequestBuilder(null);
+            result = await ScanAsync(queryRequest);
+            return new EventList
+            {
+                Events = result.Items.Select(MapEvent).ToList()
+            };
+        }
+
         public async Task<NotificationList> GetNotificationByName(string userName)
         {
             _tableName = "Notification";
