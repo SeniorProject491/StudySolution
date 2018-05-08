@@ -195,7 +195,7 @@ namespace SeniorProject1.Controllers
 
         [HttpDelete]
         [Route("deleteitem/{tableName}/{id}")]
-        public async Task<IActionResult> DeleteItem([FromQuery]string tableName, string id)
+        public async Task<IActionResult> DeleteItem(string tableName, string id)
         {
             var response = await _deleteItem.Delete(tableName, id);
 
