@@ -93,7 +93,7 @@ namespace SeniorProject1.DynamoDB
                     {
                         L = new List<AttributeValue>
                         {
-                            new AttributeValue { S = "Empty" }
+                            new AttributeValue { S = "MyCalendar" }
                         }
                     }
                 }
